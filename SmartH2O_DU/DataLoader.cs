@@ -17,26 +17,27 @@ namespace SmartH2O_DU
         {
             Console.WriteLine(str);
             string[] parts = str.Split(';');
+            if (parts[0] == "1")
+            {
+                doc = new XmlDocument();
+                XmlElement rootEl = doc.CreateElement("sensors");
+                doc.AppendChild(rootEl);
+            }
             XmlNode root = doc.SelectSingleNode("/sensors");
-
             XmlElement data = doc.CreateElement("data");
             data.SetAttribute("number", parts[0]);
             data.SetAttribute("type", parts[1]);
             data.SetAttribute("val", parts[2]);
 
             root.AppendChild(data);
-            doc.Save(filePath);
-
-
-
+            if(parts[0] == "3")
+                doc.Save(filePath);
         }
 
         public void StartDLL()
-        {
-            doc = new XmlDocument();
-            doc.Load(filePath);
+        {     
             dll = new SensorNodeDll.SensorNodeDll();
-            dll.Initialize(RetriveData, 500);
+            dll.Initialize(RetriveData, 250);
            
         }
 
