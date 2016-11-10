@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
 
 namespace SmartH2O_DU
@@ -10,7 +6,7 @@ namespace SmartH2O_DU
     class DataLoader
     {
         SensorNodeDll.SensorNodeDll dll;
-        string filePath = AppDomain.CurrentDomain.BaseDirectory.ToString() + @"App_data\sensors.xml";
+        string filePath = AppDomain.CurrentDomain.BaseDirectory.ToString() + @"App_Data\sensors.xml";
         XmlDocument doc;
 
         public void RetriveData(string str)

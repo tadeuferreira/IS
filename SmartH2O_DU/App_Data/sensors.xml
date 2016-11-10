@@ -1,0 +1,5 @@
+<sensors>
+  <data number="1" type="PH" val="6.6" />
+  <data number="2" type="NH3" val="1.24" />
+  <data number="3" type="CI2" val="11.3" />
+</sensors>
