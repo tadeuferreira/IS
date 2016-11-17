@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Xml;
 
 namespace SmartH2O_DU
@@ -11,23 +12,32 @@ namespace SmartH2O_DU
 
         public void RetriveData(string str)
         {
-            Console.WriteLine(str);
+      
+            String date = DateTime.Now.ToString("YYYY - MM - DD-hh:mm: ss");
             string[] parts = str.Split(';');
-            if (parts[0] == "1")
-            {
-                doc = new XmlDocument();
-                XmlElement rootEl = doc.CreateElement("sensors");
-                doc.AppendChild(rootEl);
-            }
-            XmlNode root = doc.SelectSingleNode("/sensors");
+
+            Console.Write(str);
+            Console.WriteLine(" " + date);
+
+            doc = new XmlDocument();
+            XmlElement rootEl = doc.CreateElement("sensor");
+            doc.AppendChild(rootEl);
+
+            XmlNode root = doc.SelectSingleNode("/sensor");
             XmlElement data = doc.CreateElement("data");
-            data.SetAttribute("number", parts[0]);
+
+            data.SetAttribute("id", parts[0]);
+            data.SetAttribute("date", date);
             data.SetAttribute("type", parts[1]);
             data.SetAttribute("val", parts[2]);
 
             root.AppendChild(data);
-            if(parts[0] == "3")
-                doc.Save(filePath);
+
+            String xml = doc.OuterXml;
+            //doc.Schemas.Add(new Xml)
+
+            //
+
         }
 
         public void StartDLL()

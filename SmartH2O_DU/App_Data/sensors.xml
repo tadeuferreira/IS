@@ -1,5 +1,4 @@
-<sensors>
-  <data number="1" type="PH" val="6.6" />
-  <data number="2" type="NH3" val="1.24" />
-  <data number="3" type="CI2" val="11.3" />
-</sensors>
+<?xml version="1.0" encoding="utf-8"?>
+<sensor>
+  <data id="1" date="2002-05-30T09:00:00" type="PH" val="6.6" />
+</sensor>
