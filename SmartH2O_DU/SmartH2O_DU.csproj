@@ -33,6 +33,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="M2Mqtt.Net, Version=4.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\M2Mqtt.4.3.0.0\lib\net45\M2Mqtt.Net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="SensorNodeDll">
       <HintPath>..\SensorNodeDll.dll</HintPath>
     </Reference>
@@ -57,6 +61,7 @@
     <None Include="App_Data\sensor.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\sensor.xml" />

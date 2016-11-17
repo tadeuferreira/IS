@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Globalization;
+using System.Net;
+using System.Text;
 using System.Xml;
 using System.Xml.Schema;
+using uPLibrary.Networking.M2Mqtt;
 
 namespace SmartH2O_DU
 {
@@ -12,6 +15,7 @@ namespace SmartH2O_DU
         XmlDocument doc;
         bool isValid;
         String ValidationMessage;
+        MqttClient m_cClient = new MqttClient("127.0.0.1");
 
         public void RetriveData(string str)
         {
@@ -52,7 +56,8 @@ namespace SmartH2O_DU
             if (isValid)
             {
                 //call mosquito
-               Console.WriteLine(xml);
+                m_cClient.Publish("smartDU", Encoding.UTF8.GetBytes(xml));
+               
             }
             else
             {
@@ -68,7 +73,12 @@ namespace SmartH2O_DU
         }
 
         public void StartDLL()
-        {     
+        {
+            m_cClient.Connect(Guid.NewGuid().ToString());
+            if (!m_cClient.IsConnected)
+            {
+                return;
+            }
             dll = new SensorNodeDll.SensorNodeDll();
             dll.Initialize(RetriveData, 250);
            
@@ -77,6 +87,7 @@ namespace SmartH2O_DU
         public void StopDll()
         {
             dll.Stop();
+            m_cClient.Disconnect();
         }
     }
 }
