@@ -1,19 +1,22 @@
 ﻿using System;
 using System.Globalization;
 using System.Xml;
+using System.Xml.Schema;
 
 namespace SmartH2O_DU
 {
     class DataLoader
     {
         SensorNodeDll.SensorNodeDll dll;
-        string filePath = AppDomain.CurrentDomain.BaseDirectory.ToString() + @"App_Data\sensors.xml";
+        string filePathXSD = AppDomain.CurrentDomain.BaseDirectory.ToString() + @"App_Data\sensor.xsd";
         XmlDocument doc;
+        bool isValid;
+        String ValidationMessage;
 
         public void RetriveData(string str)
         {
-      
-            String date = DateTime.Now.ToString("YYYY - MM - DD-hh:mm: ss");
+
+            String date = DateTime.Now.ToString("yyyy-MM-ddThh:mm:ss");
             string[] parts = str.Split(';');
 
             Console.Write(str);
@@ -34,10 +37,34 @@ namespace SmartH2O_DU
             root.AppendChild(data);
 
             String xml = doc.OuterXml;
-            //doc.Schemas.Add(new Xml)
+            try
+            {
+                isValid = true;
+                ValidationEventHandler eventH = new ValidationEventHandler(MyEvent);
+                doc.Schemas.Add(null, filePathXSD);
+                doc.Validate(eventH);          
+            }
+            catch (XmlException ex)
+            {
+                isValid = false;
+                ValidationMessage = String.Format("Invalid Document{0}", ex.Message);
+            }
+            if (isValid)
+            {
+                //call mosquito
+               Console.WriteLine(xml);
+            }
+            else
+            {
+               Console.WriteLine(ValidationMessage);
+            }
 
-            //
+        }
 
+        private void MyEvent(object sender, ValidationEventArgs e)
+        {
+            isValid = false;
+            ValidationMessage = "Invalida Document! -->" + e.Message;
         }
 
         public void StartDLL()
