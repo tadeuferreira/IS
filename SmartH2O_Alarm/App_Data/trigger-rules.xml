@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<alarmcenter>
+  <alarm type="ALARM_MIN">
+    <rule value ="4" type="PH"/>
+    <rule value ="1" type="NH3"/>
+    <rule value ="2" type="CI2"/>
+    <message>Value is the min acceptable value</message>
+  </alarm>
+
+  <alarm type="ALARM_MAX">
+    <rule value ="7" type="PH"/>
+    <rule value ="5" type="NH3"/>
+    <rule value ="4" type="CI2"/>
+    <message>Value is the max acceptable value</message>
+  </alarm>
+
+  <alarm type="ALARM_INTERVAL">
+    <rule min ="4" max="7" type="PH"/>
+    <rule min ="1" max="5" type="NH3"/>
+    <rule min ="2" max="4" type="CI2"/>
+    <message>Values are not in the required interval values</message>
+  </alarm>
+</alarmcenter>
