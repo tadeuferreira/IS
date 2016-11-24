@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartH2O_DU", "SmartH2O_DU\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartH2O_Alarm", "SmartH2O_Alarm\SmartH2O_Alarm.csproj", "{D29751BE-254B-4C29-B23D-05BA7A74D4ED}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartH2O_DLog", "SmartH2O_DLog\SmartH2O_DLog.csproj", "{B357B0A9-AADF-4BD4-984D-4EBB925EBF7E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{D29751BE-254B-4C29-B23D-05BA7A74D4ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D29751BE-254B-4C29-B23D-05BA7A74D4ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D29751BE-254B-4C29-B23D-05BA7A74D4ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B357B0A9-AADF-4BD4-984D-4EBB925EBF7E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B357B0A9-AADF-4BD4-984D-4EBB925EBF7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B357B0A9-AADF-4BD4-984D-4EBB925EBF7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B357B0A9-AADF-4BD4-984D-4EBB925EBF7E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
