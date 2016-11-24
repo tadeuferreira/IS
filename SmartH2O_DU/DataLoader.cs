@@ -74,7 +74,15 @@ namespace SmartH2O_DU
 
         public void StartDLL()
         {
-            m_cClient.Connect(Guid.NewGuid().ToString());
+            try
+            {
+                m_cClient.Connect(Guid.NewGuid().ToString());
+            }
+            catch (Exception e)
+            {
+
+                Console.Write(e.Message);
+            }
             if (!m_cClient.IsConnected)
             {
                 return;
