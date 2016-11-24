@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 using uPLibrary.Networking.M2Mqtt;
 using uPLibrary.Networking.M2Mqtt.Messages;
 
@@ -10,18 +11,48 @@ namespace SmartH2O_DLog
 {
     class Program
     {
+        
+        
+
         static void client_MqttMsgPublishReceived(object sender, MqttMsgPublishEventArgs e)
         {
             Console.WriteLine(e.Topic + ": \n" + Encoding.UTF8.GetString(e.Message));
             switch (e.Topic)
             {
                 case "smartDU":
+                    saveParamData(Encoding.UTF8.GetString(e.Message));
                     //chamar metodo de gravar no ficheiro      
                     break;
                 case "smartAlarmTrigger":
                     //chamar metodo de gravar no ficheiro
                     break;
             }
+        }
+
+        private static void saveParamData(string sensor)
+        {
+            string paramDataXML = AppDomain.CurrentDomain.BaseDirectory.ToString() + @"App_Data\param-data.xml";
+            string paramDataXSD = AppDomain.CurrentDomain.BaseDirectory.ToString() + @"App_Data\param-data.xsd";
+
+            XmlDocument docParamData = new XmlDocument();
+            docParamData.Load(paramDataXML);
+
+            XmlDocument docSensor = new XmlDocument();
+            docSensor.LoadXml(sensor);
+
+            //check if there is a root
+            XmlNode root = docParamData.SelectSingleNode("/sensors");
+            if(root == null)
+            {
+                XmlElement rootEl = docParamData.CreateElement("sensors");
+                docParamData.AppendChild(rootEl);
+                root = docParamData.SelectSingleNode("/sensors");
+            }
+
+            XmlNode sensorElement = docParamData.ImportNode(docSensor.SelectSingleNode("/sensor"), true);
+            root.AppendChild(sensorElement);
+
+            docParamData.Save(paramDataXML);
         }
 
         static void Main(string[] args)

@@ -52,7 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="App_data\param-data.xsd">
+    <None Include="App_Data\param-data.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
@@ -61,7 +61,7 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_data\param-data.xml" />
+    <Content Include="App_Data\param-data.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
