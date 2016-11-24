@@ -12,14 +12,23 @@ namespace SmartH2O_DLog
     {
         static void client_MqttMsgPublishReceived(object sender, MqttMsgPublishEventArgs e)
         {
-            Console.WriteLine("Received = " + Encoding.UTF8.GetString(e.Message) +
-            " on topic " + e.Topic);
+            Console.WriteLine(e.Topic + ": \n" + Encoding.UTF8.GetString(e.Message));
+            switch (e.Topic)
+            {
+                case "smartDU":
+                    //chamar metodo de gravar no ficheiro      
+                    break;
+                case "smartAlarmTrigger":
+                    //chamar metodo de gravar no ficheiro
+                    break;
+            }
         }
 
         static void Main(string[] args)
         {
             MqttClient m_cClient = new MqttClient("192.168.231.206");
-            string[] m_strTopicsInfo = { "smartDU" , "smartDU" };
+            string[] m_strTopicsInfo = { "smartDU" , "smartAlarmTrigger" };
+
 
             m_cClient.Connect(Guid.NewGuid().ToString());
             if (!m_cClient.IsConnected)
