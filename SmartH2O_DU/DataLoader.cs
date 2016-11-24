@@ -15,7 +15,7 @@ namespace SmartH2O_DU
         XmlDocument doc;
         bool isValid;
         String ValidationMessage;
-        MqttClient m_cClient = new MqttClient("127.0.0.1");
+        MqttClient m_cClient = new MqttClient("192.168.231.206");
 
         public void RetriveData(string str)
         {
@@ -23,8 +23,8 @@ namespace SmartH2O_DU
             String date = DateTime.Now.ToString("yyyy-MM-ddThh:mm:ss");
             string[] parts = str.Split(';');
 
-            Console.Write(str);
-            Console.WriteLine(" " + date);
+            //Console.Write(str);
+            //Console.WriteLine(" " + date);
 
             doc = new XmlDocument();
             XmlElement rootEl = doc.CreateElement("sensor");
@@ -56,6 +56,7 @@ namespace SmartH2O_DU
             if (isValid)
             {
                 //call mosquito
+                Console.WriteLine(xml);
                 m_cClient.Publish("smartDU", Encoding.UTF8.GetBytes(xml));
                
             }
@@ -85,10 +86,10 @@ namespace SmartH2O_DU
             }
             if (!m_cClient.IsConnected)
             {
-                return;
+                Console.WriteLine("Error connecting");
             }
             dll = new SensorNodeDll.SensorNodeDll();
-            dll.Initialize(RetriveData, 250);
+            dll.Initialize(RetriveData, 1000);
            
         }
 
