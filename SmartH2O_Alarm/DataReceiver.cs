@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
 using uPLibrary.Networking.M2Mqtt;
 using uPLibrary.Networking.M2Mqtt.Messages;
 
@@ -13,7 +14,7 @@ namespace SmartH2O_Alarm
     {
         private TextBox textBox1;
         MqttClient m_cClient = new MqttClient("192.168.231.206");
-        string filePathXSD = AppDomain.CurrentDomain.BaseDirectory.ToString() + @"App_Data\trigger-rules.xsd";
+      
 
         string[] strData = { "smartDU", "smartDU" };
 
@@ -24,8 +25,23 @@ namespace SmartH2O_Alarm
 
         static void client_MqttMsgPublishReceived(object sender, MqttMsgPublishEventArgs e)
         {
-           // MessageBox.Show("Received = " + Encoding.UTF8.GetString(e.Message) +
-           // " on topic " + e.Topic);
+            // MessageBox.Show("Received = " + Encoding.UTF8.GetString(e.Message) +
+            // " on topic " + e.Topic);
+            string filePathXML = AppDomain.CurrentDomain.BaseDirectory.ToString() + @"App_Data\trigger-rules.xml";
+            XmlDocument docRules = new XmlDocument();
+            docRules.Load(filePathXML);
+
+            XmlDocument docData = new XmlDocument();
+            docData.LoadXml(Encoding.UTF8.GetString(e.Message));
+
+            XmlNode data = docData.SelectSingleNode("/sensor/data");
+            string type = data.Attributes["type"].Value;
+            string val = data.Attributes["val"].Value;
+
+
+
+
+
         }
 
         public void startMosquitto(){
@@ -54,8 +70,9 @@ namespace SmartH2O_Alarm
                 return;
             }
 
-        
         }
+
+       
 
     }
 }
