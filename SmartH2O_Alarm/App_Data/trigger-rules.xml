@@ -1,23 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <alarmcenter>
   <alarm type="ALARM_MIN">
-    <rule value ="4" type="PH"/>
-    <rule value ="1" type="NH3"/>
-    <rule value ="2" type="CI2"/>
-    <message>Value is the min acceptable value</message>
+    <rule value ="2" type="CI2" active="true">com valor inferior ao minimo</rule>
   </alarm>
 
   <alarm type="ALARM_MAX">
-    <rule value ="7" type="PH"/>
-    <rule value ="5" type="NH3"/>
-    <rule value ="4" type="CI2"/>
-    <message>Value is the max acceptable value</message>
+    <rule value ="5" type="NH3" active="true">com valor superior ao máximo</rule>
   </alarm>
 
   <alarm type="ALARM_INTERVAL">
-    <rule min ="4" max="7" type="PH"/>
-    <rule min ="1" max="5" type="NH3"/>
-    <rule min ="2" max="4" type="CI2"/>
-    <message>Values are not in the required interval values</message>
+    <rule min ="1" max="6" type="PH" active="true">Água Ácida</rule>
+    <rule min ="8" max="14" type="PH" active="true">Água Alcalina</rule>
+  </alarm>
+
+  <alarm type="ALARM_EQUALS">
+    <rule value ="4" type="CI2" active="true">com valor igual ao recomendado</rule>
   </alarm>
 </alarmcenter>

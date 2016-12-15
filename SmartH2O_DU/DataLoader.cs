@@ -15,7 +15,7 @@ namespace SmartH2O_DU
         XmlDocument doc;
         bool isValid;
         String ValidationMessage;
-        MqttClient m_cClient = new MqttClient("192.168.231.206");
+        MqttClient m_cClient = new MqttClient(Properties.Resources.brokerIP);
 
         public void RetriveData(string str)
         {
@@ -75,6 +75,7 @@ namespace SmartH2O_DU
 
         public void StartDLL()
         {
+            Console.WriteLine("Connecting ....");
             try
             {
                 m_cClient.Connect(Guid.NewGuid().ToString());
@@ -82,14 +83,17 @@ namespace SmartH2O_DU
             catch (Exception e)
             {
 
-                Console.Write(e.Message);
+                Console.WriteLine(e.Message);
             }
             if (!m_cClient.IsConnected)
             {
                 Console.WriteLine("Error connecting");
+            }else
+            {
+                Console.WriteLine("Connected");
             }
             dll = new SensorNodeDll.SensorNodeDll();
-            dll.Initialize(RetriveData, 1000);
+            dll.Initialize(RetriveData, 1500);
            
         }
 

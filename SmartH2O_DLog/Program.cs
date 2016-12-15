@@ -11,9 +11,6 @@ namespace SmartH2O_DLog
 {
     class Program
     {
-        
-        
-
         static void client_MqttMsgPublishReceived(object sender, MqttMsgPublishEventArgs e)
         {
             Console.WriteLine(e.Topic + ": \n" + Encoding.UTF8.GetString(e.Message));
@@ -57,10 +54,11 @@ namespace SmartH2O_DLog
 
         static void Main(string[] args)
         {
-            MqttClient m_cClient = new MqttClient("192.168.231.206");
+            Console.WriteLine("Connecting ....");
+            MqttClient m_cClient = new MqttClient(Properties.Resources.brokerIP);
             string[] m_strTopicsInfo = { "smartDU" , "smartAlarmTrigger" };
 
-
+            
             m_cClient.Connect(Guid.NewGuid().ToString());
             if (!m_cClient.IsConnected)
             {
