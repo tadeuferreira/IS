@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SmartH2O_Alarm.Properties {
+namespace SmartH2O_DU.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace SmartH2O_Alarm.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("SmartH2O_Alarm.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("SmartH2O_DU.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -63,9 +63,9 @@ namespace SmartH2O_Alarm.Properties {
         /// <summary>
         ///   Looks up a localized string similar to 192.168.231.196.
         /// </summary>
-        internal static string bokerIP {
+        internal static string brokerIP {
             get {
-                return ResourceManager.GetString("bokerIP", resourceCulture);
+                return ResourceManager.GetString("brokerIP", resourceCulture);
             }
         }
     }
