@@ -93,7 +93,7 @@ namespace SmartH2O_DU
                 Console.WriteLine("Connected");
             }
             dll = new SensorNodeDll.SensorNodeDll();
-            dll.Initialize(RetriveData, 1500);
+            dll.Initialize(RetriveData, 3000);
            
         }
 
