@@ -14,6 +14,6 @@
   </alarm>
 
   <alarm type="ALARM_EQUALS">
-    <rule value ="4" type="CI2" active="true">com valor igual ao recomendado</rule>
+    <rule value ="4" type="CI2" active="true">com valor igual ao recomendado></rule>
   </alarm>
 </alarmcenter>

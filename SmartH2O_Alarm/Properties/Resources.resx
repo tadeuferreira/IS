@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="bokerIP" xml:space="preserve">
-    <value>192.168.231.196</value>
+    <value>192.168.1.170</value>
     <comment>change it to the broker machine ip address</comment>
   </data>
 </root>

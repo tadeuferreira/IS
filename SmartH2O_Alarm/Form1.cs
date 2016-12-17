@@ -16,11 +16,12 @@ namespace SmartH2O_Alarm
 {
     public partial class Form1 : Form
     {
-        static Boolean deactivated = true;
-        static List<Parameter> rules = new List<Parameter>();
-        static XmlDocument doc = new XmlDocument();
-        static MqttClient ciClient = new MqttClient(Properties.Resources.bokerIP);
-        static string[] m_strTopicsInfo = { "parameters", "alarms" };
+        string alarmChannel = "smartAlarm";
+        Boolean activated = true;
+        XmlDocument docRules = new XmlDocument();
+        MqttClient ciClient = new MqttClient(Properties.Resources.bokerIP);
+        string[] m_strTopicsInfo = {"smartDU"};
+        string filePathRules = AppDomain.CurrentDomain.BaseDirectory.ToString() + @"App_Data\trigger-rules.xml";
 
         public Form1()
         {
@@ -37,53 +38,81 @@ namespace SmartH2O_Alarm
 
             byte[] qosLevels = { MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE };
             ciClient.Subscribe(m_strTopicsInfo, qosLevels);
+            loadRules();
         }
 
         private void client_MqttMsgPublishReceived(object sender, MqttMsgPublishEventArgs e)
         {
-            string data = Encoding.UTF8.GetString(e.Message);
-            XmlDocument xml = new XmlDocument();
-            xml.LoadXml(data);
 
-            if (rules.Count != 0)
+            if (activated)
             {
-                XmlNodeList nodeList = xml.GetElementsByTagName("parameter");
-                foreach (XmlNode node in nodeList)
+                string message = Encoding.UTF8.GetString(e.Message);
+                Console.WriteLine(e.Topic + ": \n" + message);
+
+                if (e.Topic == "smartDU")
                 {
-                    foreach (Parameter p in rules)
+                    alarmTriggerCheck(Encoding.UTF8.GetString(e.Message));
+                }
+            }  
+        }
+
+        private void alarmTriggerCheck(string paramData)
+        {
+            XmlNodeList listAlarms = docRules.SelectNodes("/alarmcenter/alarm");
+
+            XmlDocument docParamData = new XmlDocument();
+            docParamData.LoadXml(paramData);
+            XmlNode nodeData = docParamData.SelectSingleNode("/sensor/data");
+            int count = listAlarms.Count;
+            for(int i = 0; i < count; i++)
+            {
+                XmlNode nodeAlarm = listAlarms.Item(i);
+                if (nodeAlarm.HasChildNodes)
+                {
+                    XmlNodeList listRules = nodeAlarm.SelectNodes("/rule");
+                    int countrule = listRules.Count;
+                    for(int j = 0; i< countrule; i++)
                     {
-                        Console.WriteLine("node :" + node.ChildNodes[0].InnerText.Trim());
-                        Console.WriteLine("rule :" + p.Name.Trim());
-
-                        string toCompare = node.ChildNodes[0].InnerText.Trim();
-                        string rule = p.Name.Trim();
-
-                        if (String.Compare(toCompare, rule) == 0)
+                        XmlNode nodeRule = listRules.Item(j);
+                        if(nodeRule.Attributes["active"].Value == "true")
                         {
-                            Console.WriteLine(node.ChildNodes[1].InnerText);
-                            float floatToCompare = float.Parse(node.ChildNodes[1].InnerText, CultureInfo.InvariantCulture);
-                            float floatRule = float.Parse(p.Value, CultureInfo.InvariantCulture);
-
-                            Console.WriteLine("Floats " + node.ChildNodes[1].InnerText + p.Value);
-
-                            switch (p.Condition)
+                            switch (nodeAlarm.Attributes["type"].Value)
                             {
-                                case "bigger":
-                                    if (floatToCompare > floatRule)
+                                case "ALARM_MIN":
+                                    if (nodeRule.Attributes["type"].Value == nodeData.Attributes["type"].Value)
                                     {
-                                        appendAlarm(floatToCompare + " bigger " + floatRule, p.Name + "was bigger than " + floatRule);
+                                        float ruleval = float.Parse(nodeRule.Attributes["value"].Value);
+                                        float dataVal = float.Parse(nodeRule.Attributes["value"].Value);
+                                        if (dataVal < ruleval)
+                                            triggerAlarm(nodeRule, nodeData);
                                     }
                                     break;
-                                case "smaller":
-                                    if (floatToCompare < floatRule)
+                                case "ALARM_MAX":
+                                    if (nodeRule.Attributes["type"].Value == nodeData.Attributes["type"].Value)
                                     {
-                                        appendAlarm(floatToCompare + " smaller " + floatRule, p.Name + "was smaller than " + floatRule);
+                                        float ruleval = float.Parse(nodeRule.Attributes["value"].Value);
+                                        float dataVal = float.Parse(nodeRule.Attributes["value"].Value);
+                                        if (dataVal > ruleval)
+                                            triggerAlarm(nodeRule, nodeData);
                                     }
                                     break;
-                                case "equals":
-                                    if (floatToCompare == floatRule)
+                                case "ALARM_INTERVAL":
+                                    if (nodeRule.Attributes["type"].Value == nodeData.Attributes["type"].Value)
                                     {
-                                        appendAlarm(floatToCompare + " bigger " + floatRule, p.Name + "was equals to " + floatRule);
+                                        float rulemin = float.Parse(nodeRule.Attributes["min"].Value);
+                                        float rulemax = float.Parse(nodeRule.Attributes["max"].Value);
+                                        float dataVal = float.Parse(nodeRule.Attributes["value"].Value);
+                                        if (dataVal >= rulemin && dataVal <= rulemax)
+                                            triggerAlarm(nodeRule, nodeData);
+                                    }
+                                    break;
+                                case "ALARM_EQUALS":
+                                    if (nodeRule.Attributes["type"].Value == nodeData.Attributes["type"].Value)
+                                    {
+                                        float ruleval = float.Parse(nodeRule.Attributes["value"].Value);
+                                        float dataVal = float.Parse(nodeRule.Attributes["value"].Value);
+                                        if (dataVal == ruleval)
+                                            triggerAlarm(nodeRule, nodeData);
                                     }
                                     break;
                             }
@@ -91,68 +120,70 @@ namespace SmartH2O_Alarm
                     }
                 }
             }
+
+            
+
+
+
+        }
+
+        private void triggerAlarm(XmlNode nodeRule, XmlNode nodeData)
+        {
+            XmlDocument messageDoc = new XmlDocument();
+            XmlNode root = messageDoc.SelectSingleNode("/alarmTrigger");
+            if (root == null)
+            {
+                XmlElement rootEl = messageDoc.CreateElement("alarmTrigger");
+                messageDoc.AppendChild(rootEl);
+                root = messageDoc.SelectSingleNode("/alarmTrigger");
+            }
+
+            XmlElement messageEl = messageDoc.CreateElement("messageEl");
+            messageEl.SetAttribute("alarmType", nodeRule.Attributes["type"].Value);
+            messageEl.SetAttribute("sensorType", nodeData.Attributes["type"].Value);
+            messageEl.SetAttribute("sensorid", nodeData.Attributes["id"].Value);
+            messageEl.SetAttribute("date", nodeData.Attributes["date"].Value);
+            messageEl.SetAttribute("val", nodeData.Attributes["val"].Value);
+            messageEl.InnerText = nodeRule.InnerText;
+            root.AppendChild(messageEl);
+
+            publishToCI(messageDoc.OuterXml);
+
+
         }
 
         private void loadRules()
         {
-            doc.Load("trigger-rules.xml");
-            XmlNodeList nodeList = doc.GetElementsByTagName("parameter");
-            if (nodeList != null)
-            {
-                foreach (XmlNode node in nodeList)
-                {
-                    Parameter param = new Parameter();
-                    param.Name = node.ChildNodes[0].InnerText;
-                    param.Value = node.ChildNodes[1].InnerText;
-                    param.Condition = node.ChildNodes[2].InnerText;
-                    rules.Add(param);
-
-                }
-            }
-
-            foreach (Parameter p in rules)
-            {
-                Console.WriteLine(p.toString());
-            }
+            docRules.Load(filePathRules);
         }
 
-        private static void appendAlarm(string alarm, string message)
-        {
-            XmlDocumentFragment xfragment = doc.CreateDocumentFragment();
-            xfragment.InnerXml = "<alarm>" + alarm + "</alarm><message>" + message + "</message>";
-            doc.DocumentElement.FirstChild.AppendChild(xfragment);
-            publicToCI(m_strTopicsInfo[1], doc.InnerText);
-        }
 
-        private static void publicToCI(string channel, string parameter)
+        private void publishToCI(string message)
         {
             if (ciClient.IsConnected)
             {
-                ciClient.Publish(channel, Encoding.UTF8.GetBytes(parameter));
-                Console.WriteLine(parameter);
+                Console.WriteLine(message);
+                ciClient.Publish(alarmChannel, Encoding.UTF8.GetBytes(message));
             }
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-           /*  DataReceiver data = new DataReceiver();
 
-            data.startMosquitto(); */
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            switch (deactivated)
+            switch (activated)
             {
-                case false:
-                    button1.Text = "OFF";
-                    deactivated = true;
-                    break;
                 case true:
+                    button1.Text = "OFF";
+                    activated = false;
+                    break;
+                case false:
                     button1.Text = "ON";
-                    rules.Clear();
                     loadRules();
-                    deactivated = false;
+                    activated = true;
                     break;
             }
         }

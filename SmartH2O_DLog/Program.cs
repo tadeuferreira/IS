@@ -20,7 +20,7 @@ namespace SmartH2O_DLog
                     saveParamData(Encoding.UTF8.GetString(e.Message));
                     //chamar metodo de gravar no ficheiro      
                     break;
-                case "smartAlarmTrigger":
+                case "smartAlarm":
                     //chamar metodo de gravar no ficheiro
                     break;
             }
@@ -56,7 +56,7 @@ namespace SmartH2O_DLog
         {
             Console.WriteLine("Connecting ....");
             MqttClient m_cClient = new MqttClient(Properties.Resources.brokerIP);
-            string[] m_strTopicsInfo = { "smartDU" , "smartAlarmTrigger" };
+            string[] m_strTopicsInfo = { "smartDU" , "smartAlarm" };
 
             
             m_cClient.Connect(Guid.NewGuid().ToString());
