@@ -16,6 +16,7 @@ namespace SmartH2O_Alarm
 {
     public partial class Form1 : Form
     {
+        delegate void SetTextCallback(string text);
         string alarmChannel = "smartAlarm";
         Boolean activated = true;
         XmlDocument docRules = new XmlDocument();
@@ -47,7 +48,7 @@ namespace SmartH2O_Alarm
             if (activated)
             {
                 string message = Encoding.UTF8.GetString(e.Message);
-                Console.WriteLine(e.Topic + ": \n" + message);
+                //Console.WriteLine(e.Topic + ": \n" + message);
 
                 if (e.Topic == "smartDU")
                 {
@@ -64,36 +65,39 @@ namespace SmartH2O_Alarm
             docParamData.LoadXml(paramData);
             XmlNode nodeData = docParamData.SelectSingleNode("/sensor/data");
             int count = listAlarms.Count;
+
             for(int i = 0; i < count; i++)
             {
                 XmlNode nodeAlarm = listAlarms.Item(i);
                 if (nodeAlarm.HasChildNodes)
                 {
-                    XmlNodeList listRules = nodeAlarm.SelectNodes("/rule");
+                    XmlNodeList listRules = nodeAlarm.SelectNodes("rule");
                     int countrule = listRules.Count;
-                    for(int j = 0; i< countrule; i++)
+                    for(int j = 0; j< countrule; j++)
                     {
-                        XmlNode nodeRule = listRules.Item(j);
+                        XmlNode nodeRule = listRules.Item(j);                 
                         if(nodeRule.Attributes["active"].Value == "true")
                         {
-                            switch (nodeAlarm.Attributes["type"].Value)
+                            string alarmType = nodeAlarm.Attributes["type"].Value;
+
+                            switch (alarmType)
                             {
                                 case "ALARM_MIN":
                                     if (nodeRule.Attributes["type"].Value == nodeData.Attributes["type"].Value)
                                     {
                                         float ruleval = float.Parse(nodeRule.Attributes["value"].Value);
-                                        float dataVal = float.Parse(nodeRule.Attributes["value"].Value);
+                                        float dataVal = float.Parse(nodeData.Attributes["val"].Value);
                                         if (dataVal < ruleval)
-                                            triggerAlarm(nodeRule, nodeData);
+                                            triggerAlarm(nodeRule, nodeData, alarmType);
                                     }
                                     break;
                                 case "ALARM_MAX":
                                     if (nodeRule.Attributes["type"].Value == nodeData.Attributes["type"].Value)
                                     {
                                         float ruleval = float.Parse(nodeRule.Attributes["value"].Value);
-                                        float dataVal = float.Parse(nodeRule.Attributes["value"].Value);
+                                        float dataVal = float.Parse(nodeData.Attributes["val"].Value);
                                         if (dataVal > ruleval)
-                                            triggerAlarm(nodeRule, nodeData);
+                                            triggerAlarm(nodeRule, nodeData, alarmType);
                                     }
                                     break;
                                 case "ALARM_INTERVAL":
@@ -101,18 +105,18 @@ namespace SmartH2O_Alarm
                                     {
                                         float rulemin = float.Parse(nodeRule.Attributes["min"].Value);
                                         float rulemax = float.Parse(nodeRule.Attributes["max"].Value);
-                                        float dataVal = float.Parse(nodeRule.Attributes["value"].Value);
+                                        float dataVal = float.Parse(nodeData.Attributes["val"].Value);
                                         if (dataVal >= rulemin && dataVal <= rulemax)
-                                            triggerAlarm(nodeRule, nodeData);
+                                            triggerAlarm(nodeRule, nodeData, alarmType);
                                     }
                                     break;
                                 case "ALARM_EQUALS":
                                     if (nodeRule.Attributes["type"].Value == nodeData.Attributes["type"].Value)
                                     {
                                         float ruleval = float.Parse(nodeRule.Attributes["value"].Value);
-                                        float dataVal = float.Parse(nodeRule.Attributes["value"].Value);
+                                        float dataVal = float.Parse(nodeData.Attributes["val"].Value);
                                         if (dataVal == ruleval)
-                                            triggerAlarm(nodeRule, nodeData);
+                                            triggerAlarm(nodeRule, nodeData, alarmType);
                                     }
                                     break;
                             }
@@ -127,8 +131,9 @@ namespace SmartH2O_Alarm
 
         }
 
-        private void triggerAlarm(XmlNode nodeRule, XmlNode nodeData)
+        private void triggerAlarm(XmlNode nodeRule, XmlNode nodeData, string alarmType)
         {
+            Console.WriteLine("triggering");
             XmlDocument messageDoc = new XmlDocument();
             XmlNode root = messageDoc.SelectSingleNode("/alarmTrigger");
             if (root == null)
@@ -138,18 +143,47 @@ namespace SmartH2O_Alarm
                 root = messageDoc.SelectSingleNode("/alarmTrigger");
             }
 
-            XmlElement messageEl = messageDoc.CreateElement("messageEl");
-            messageEl.SetAttribute("alarmType", nodeRule.Attributes["type"].Value);
+            XmlElement messageEl = messageDoc.CreateElement("message");
+            messageEl.SetAttribute("alarmType", alarmType);
             messageEl.SetAttribute("sensorType", nodeData.Attributes["type"].Value);
             messageEl.SetAttribute("sensorid", nodeData.Attributes["id"].Value);
             messageEl.SetAttribute("date", nodeData.Attributes["date"].Value);
             messageEl.SetAttribute("val", nodeData.Attributes["val"].Value);
+            if(alarmType == "ALARM_INTERVAL")
+            {
+                messageEl.SetAttribute("lowertriggerValue", nodeRule.Attributes["min"].Value);
+                messageEl.SetAttribute("highertriggerValue", nodeRule.Attributes["max"].Value);
+            }
+            else
+            {
+                messageEl.SetAttribute("triggerValue", nodeRule.Attributes["value"].Value);
+            }
             messageEl.InnerText = nodeRule.InnerText;
             root.AppendChild(messageEl);
+            string outer = messageDoc.OuterXml;
 
-            publishToCI(messageDoc.OuterXml);
+            Console.WriteLine(outer);
+            publishToCI(outer);
 
+            string text = messageEl.InnerText + "@";
+            text = text.Replace("@",Environment.NewLine);
+            SetText(text);
+        }
 
+        private void SetText(string text)
+        {
+            // InvokeRequired required compares the thread ID of the
+            // calling thread to the thread ID of the creating thread.
+            // If these threads are different, it returns true.
+            if (this.textBox1.InvokeRequired)
+            {
+                SetTextCallback d = new SetTextCallback(SetText);
+                this.Invoke(d, new object[] { text });
+            }
+            else
+            {
+                this.textBox1.Text = textBox1.Text + text;
+            }
         }
 
         private void loadRules()
@@ -162,7 +196,7 @@ namespace SmartH2O_Alarm
         {
             if (ciClient.IsConnected)
             {
-                Console.WriteLine(message);
+              
                 ciClient.Publish(alarmChannel, Encoding.UTF8.GetBytes(message));
             }
         }

@@ -61,7 +61,7 @@ namespace SmartH2O_Alarm.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 192.168.1.170.
+        ///   Looks up a localized string similar to 172.22.192.150.
         /// </summary>
         internal static string bokerIP {
             get {
