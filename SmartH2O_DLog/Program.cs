@@ -28,6 +28,29 @@ namespace SmartH2O_DLog
                     break;
                 case "smartAlarm":
                     serviceClient.PutAlarm(Encoding.UTF8.GetString(e.Message));
+
+                    string alarmDataXML = AppDomain.CurrentDomain.BaseDirectory.ToString() + @"App_Data\alarm-data.xml";
+                    string paramDataXSD = AppDomain.CurrentDomain.BaseDirectory.ToString() + @"App_Data\alarm-data.xsd";
+
+                    XmlDocument docAlarmData = new XmlDocument();
+                    docAlarmData.Load(alarmDataXML);
+
+                    XmlDocument docTrigger = new XmlDocument();
+                    docTrigger.LoadXml(Encoding.UTF8.GetString(e.Message));
+
+                    //check if there is a root
+                    XmlNode root = docAlarmData.SelectSingleNode("/alarms");
+                    if (root == null)
+                    {
+                        XmlElement rootEl = docAlarmData.CreateElement("alarms");
+                        docAlarmData.AppendChild(rootEl);
+                        root = docAlarmData.SelectSingleNode("/alarms");
+                    }
+
+                    XmlNode triggerEl = docAlarmData.ImportNode(docTrigger.SelectSingleNode("/alarmTrigger"), true);
+                    root.AppendChild(triggerEl);
+                    docAlarmData.Save(alarmDataXML);
+
                     break;
             }
         }

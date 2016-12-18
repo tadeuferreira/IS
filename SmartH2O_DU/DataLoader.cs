@@ -22,11 +22,9 @@ namespace SmartH2O_DU
         {
             Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
             Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
+
             String date = DateTime.Now.ToString("yyyy-MM-ddThh:mm:ss");
             string[] parts = str.Split(';');
-
-            //Console.Write(str);
-            //Console.WriteLine(" " + date);
 
             doc = new XmlDocument();
             XmlElement rootEl = doc.CreateElement("sensor");
@@ -55,6 +53,7 @@ namespace SmartH2O_DU
                 isValid = false;
                 ValidationMessage = String.Format("Invalid Document{0}", ex.Message);
             }
+
             if (isValid)
             {
                 //call mosquito

@@ -10,6 +10,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
+using System.Xml.Schema;
 using uPLibrary.Networking.M2Mqtt;
 using uPLibrary.Networking.M2Mqtt.Messages;
 
@@ -18,12 +19,18 @@ namespace SmartH2O_Alarm
     public partial class Form1 : Form
     {
         delegate void SetTextCallback(string text);
+        string ValidationMessage;
         string alarmChannel = "smartAlarm";
         Boolean activated = true;
+        Boolean isValid = false;
+        Boolean isValidRule = false;
+        string ValidationMessageRule;
         XmlDocument docRules = new XmlDocument();
         MqttClient ciClient = new MqttClient(Properties.Resources.bokerIP);
         string[] m_strTopicsInfo = {"smartDU"};
         string filePathRules = AppDomain.CurrentDomain.BaseDirectory.ToString() + @"App_Data\trigger-rules.xml";
+        string filePathRulesXSD = AppDomain.CurrentDomain.BaseDirectory.ToString() + @"App_Data\trigger-rules.xsd";
+        string filePathSensorXSD = AppDomain.CurrentDomain.BaseDirectory.ToString() + @"App_Data\sensor.xsd";
 
         public Form1()
         {
@@ -54,10 +61,36 @@ namespace SmartH2O_Alarm
                 //Console.WriteLine(e.Topic + ": \n" + message);
 
                 if (e.Topic == "smartDU")
-                {
-                    alarmTriggerCheck(Encoding.UTF8.GetString(e.Message));
+                {                
+                    XmlDocument doc = new XmlDocument();
+                    doc.LoadXml(Encoding.UTF8.GetString(e.Message));
+                    isValid = false;
+                    try
+                    {
+                        isValid = true;
+                        ValidationEventHandler eventH = new ValidationEventHandler(MyEvent);
+                        doc.Schemas.Add(null, filePathSensorXSD);
+                        doc.Validate(eventH);
+                    }
+                    catch (XmlException)
+                    {
+                        isValid = false;
+                    }
+
+                    if (isValid)
+                    {
+                        alarmTriggerCheck(doc.OuterXml);
+                    }
+                    else
+                    {
+                        Console.WriteLine(ValidationMessage);
+                    }
                 }
             }  
+        }
+        private void MyEvent(object sender, ValidationEventArgs e)
+        {
+            ValidationMessage = "Invalida Document! -->" + e.Message;
         }
 
         private void alarmTriggerCheck(string paramData)
@@ -127,11 +160,6 @@ namespace SmartH2O_Alarm
                     }
                 }
             }
-
-            
-
-
-
         }
 
         private void triggerAlarm(XmlNode nodeRule, XmlNode nodeData, string alarmType)
@@ -154,8 +182,8 @@ namespace SmartH2O_Alarm
             messageEl.SetAttribute("val", nodeData.Attributes["val"].Value);
             if(alarmType == "ALARM_INTERVAL")
             {
-                messageEl.SetAttribute("lowertriggerValue", nodeRule.Attributes["min"].Value);
-                messageEl.SetAttribute("highertriggerValue", nodeRule.Attributes["max"].Value);
+                messageEl.SetAttribute("lowerTriggerValue", nodeRule.Attributes["min"].Value);
+                messageEl.SetAttribute("higherTriggerValue", nodeRule.Attributes["max"].Value);
             }
             else
             {
@@ -164,13 +192,31 @@ namespace SmartH2O_Alarm
             messageEl.InnerText = nodeRule.InnerText;
             root.AppendChild(messageEl);
             string outer = messageDoc.OuterXml;
+            Boolean isValidalarm = false;
+            try
+            {
+                isValidalarm = true;
+                ValidationEventHandler eventH = new ValidationEventHandler(MyEvent);
+                messageDoc.Schemas.Add(null, AppDomain.CurrentDomain.BaseDirectory.ToString() + @"App_Data\alarm-trigger.xsd");
+                messageDoc.Validate(eventH);
+            }
+            catch (XmlException)
+            {
+                isValidalarm = false;
+            }
 
-            Console.WriteLine(outer);
-            publishToCI(outer);
-
-            string text = messageEl.InnerText + "@";
-            text = text.Replace("@",Environment.NewLine);
-            SetText(text);
+            if (isValidalarm)
+            {
+                Console.WriteLine(outer);
+                publishToCI(outer);
+                string text = messageEl.InnerText + "@";
+                text = text.Replace("@", Environment.NewLine);
+                SetText(text);
+            }
+            else
+            {
+                Console.WriteLine(ValidationMessage);
+            }
         }
 
         private void SetText(string text)
@@ -192,8 +238,28 @@ namespace SmartH2O_Alarm
         private void loadRules()
         {
             docRules.Load(filePathRules);
-        }
+            isValidRule = false;
+            try
+            {
+                isValidRule = true;
+                ValidationEventHandler eventH = new ValidationEventHandler(MyEvent);
+                docRules.Schemas.Add(null, filePathRulesXSD);
+                docRules.Validate(eventH);
+            }
+            catch (XmlException)
+            {
+                isValidRule = false;
+            }
 
+            if (!isValidRule)
+            {
+                MessageBox.Show("trigger-rules.xml not valid!");
+                activated = false;
+                button1.Text = "RESUME";
+                textBox2.ReadOnly = true;
+            }
+
+        }
 
         private void publishToCI(string message)
         {
@@ -207,6 +273,12 @@ namespace SmartH2O_Alarm
         private void Form1_Load(object sender, EventArgs e)
         {
 
+            textBox2.Text = AppDomain.CurrentDomain.BaseDirectory.ToString() + @"App_Data\trigger-rules.xml";
+            textBox3.Text = AppDomain.CurrentDomain.BaseDirectory.ToString() + @"App_Data\trigger-rules.xsd";
+
+            filePathRules = textBox2.Text;
+            filePathRulesXSD = textBox3.Text;
+
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -214,15 +286,22 @@ namespace SmartH2O_Alarm
             switch (activated)
             {
                 case true:
-                    button1.Text = "OFF";
+                    button1.Text = "STOP";
+                    textBox2.ReadOnly = true;
                     activated = false;
                     break;
                 case false:
-                    button1.Text = "ON";
+                    button1.Text = "RESUME";
+                    textBox2.ReadOnly = false;
                     loadRules();
                     activated = true;
                     break;
             }
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+            filePathRules = textBox2.Text;
         }
     }
 }

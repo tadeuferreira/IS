@@ -18,7 +18,7 @@
     <rule min ="1" max="5" type="NH3" active="true">Concentracao de NH3 ideal</rule>
     <rule min ="8" max="14" type="NH3" active="true">Agua impropria para consumo</rule>
     <rule min ="3" max="6" type="CI2" active="true">Concentracao de CI2 ideal</rule>
-    <rule min ="7" max="14" type="CI2" active="true">>Agua impropria para consumo</rule>
+    <rule min ="7" max="14" type="CI2" active="true">Agua impropria para consumo</rule>
   </alarm>
 
   <alarm type="ALARM_EQUALS">

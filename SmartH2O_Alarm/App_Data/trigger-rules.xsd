@@ -1,25 +1,46 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:element name="alarmcenter">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element maxOccurs="unbounded" name="alarm">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element maxOccurs="unbounded" name="rule">
-                <xs:complexType>
-                  <xs:attribute name="value" type="xs:unsignedByte" use="optional" />
-                  <xs:attribute name="type" type="xs:string" use="required" />
-                  <xs:attribute name="min" type="xs:unsignedByte" use="optional" />
-                  <xs:attribute name="max" type="xs:unsignedByte" use="optional" />
-                </xs:complexType>
-              </xs:element>
-              <xs:element name="message" type="xs:string" />
-            </xs:sequence>
-            <xs:attribute name="type" type="xs:string" use="required" />
-          </xs:complexType>
-        </xs:element>
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
+  <xs:element name="alarmcenter" type="alarmcenterType"/>
+
+
+  <xs:complexType name="alarmcenterType">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" name="alarm" type="alarmType"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="alarmType">
+    <xs:choice>
+      <xs:element maxOccurs="unbounded" name="rule" type="ruleType" />
+    </xs:choice>
+    <xs:attribute name="type" type="categoryAlarmType" use="required" />
+  </xs:complexType>
+
+  <xs:complexType name="ruleType">
+    <xs:sequence>
+      <xs:element name="message" type="xs:string" />
+    </xs:sequence>
+    <xs:attribute name="type" type="categorySensorType" use="required" />
+    <xs:attribute name="value" type="xs:float" use="optional" />
+    <xs:attribute name="min" type="xs:float" use="optional" />
+    <xs:attribute name="max" type="xs:float" use="optional" />
+  </xs:complexType>
+
+  <xs:simpleType	name="categoryAlarmType">
+    <xs:restriction	base="xs:string">
+      <xs:enumeration	value="ALARM_EQUALS"/>
+      <xs:enumeration	value="ALARM_MAX"/>
+      <xs:enumeration	value="ALARM_MIN"/>
+      <xs:enumeration	value="ALARM_INTERVAL"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType	name="categorySensorType">
+    <xs:restriction	base="xs:string">
+      <xs:enumeration	value="PH"/>
+      <xs:enumeration	value="NH3"/>
+      <xs:enumeration	value="CI2"/>
+    </xs:restriction>
+  </xs:simpleType>
+
 </xs:schema>
