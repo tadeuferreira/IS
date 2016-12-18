@@ -86,6 +86,9 @@ namespace SmartH2O_Alarm
                                     if (nodeRule.Attributes["type"].Value == nodeData.Attributes["type"].Value)
                                     {
                                         float ruleval = float.Parse(nodeRule.Attributes["value"].Value);
+                                        Console.WriteLine(CultureInfo.CurrentCulture);
+                                        Console.WriteLine(CultureInfo.CurrentUICulture);
+
                                         float dataVal = float.Parse(nodeData.Attributes["val"].Value);
                                         if (dataVal < ruleval)
                                             triggerAlarm(nodeRule, nodeData, alarmType);
