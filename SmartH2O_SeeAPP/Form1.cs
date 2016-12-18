@@ -26,12 +26,14 @@ namespace SmartH2O_SeeAPP
 
         private void AlarmBetweenDates_Click(object sender, EventArgs e)
         {
-            alarmInfo = service.GetAlarmInterval(dateTimePickerAlarmStart.Value.Date, dateTimePickerAlarmEnd.Value.Date);
+            
+
+            alarmInfo = service.GetAlarmInterval(dateTimePickerAlarmStart.Value, dateTimePickerAlarmEnd.Value);
             for (int i = 0; i < alarmInfo.Length; i++)
             {
                 textBoxAlarmInfo.Text = alarmInfo[i].Type + alarmInfo[i].TriggerType + alarmInfo[i].TriggerValue.ToString() + alarmInfo[i].Datetime.ToString();
             }
-
+            textBoxAlarmInfo.Text = alarmInfo.Length.ToString()+ "\n" + dateTimePickerAlarmStart.Value+ "\n" + dateTimePickerAlarmEnd.Value;
         }
     }
 }
