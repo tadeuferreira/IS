@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
@@ -27,6 +28,7 @@ namespace SmartH2O_Alarm
         public Form1()
         {
             InitializeComponent();
+            Console.WriteLine(CultureInfo.CurrentCulture);
 
             ciClient.Connect(Guid.NewGuid().ToString());
 
@@ -44,7 +46,8 @@ namespace SmartH2O_Alarm
 
         private void client_MqttMsgPublishReceived(object sender, MqttMsgPublishEventArgs e)
         {
-
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
             if (activated)
             {
                 string message = Encoding.UTF8.GetString(e.Message);

@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Net;
 using System.Text;
+using System.Threading;
 using System.Xml;
 using System.Xml.Schema;
 using uPLibrary.Networking.M2Mqtt;
@@ -19,7 +20,8 @@ namespace SmartH2O_DU
 
         public void RetriveData(string str)
         {
-
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
             String date = DateTime.Now.ToString("yyyy-MM-ddThh:mm:ss");
             string[] parts = str.Split(';');
 

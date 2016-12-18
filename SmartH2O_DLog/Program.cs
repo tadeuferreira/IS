@@ -1,8 +1,10 @@
 ﻿
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Xml;
 using uPLibrary.Networking.M2Mqtt;
@@ -16,48 +18,19 @@ namespace SmartH2O_DLog
 
         static void client_MqttMsgPublishReceived(object sender, MqttMsgPublishEventArgs e)
         {
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
             Console.WriteLine(e.Topic + ": \n" + Encoding.UTF8.GetString(e.Message));
             switch (e.Topic)
             {
                 case "smartDU":
-                    //saveParamData();
-                    serviceClient.PutParam(Encoding.UTF8.GetString(e.Message));
-                    //chamar metodo de gravar no ficheiro      
+                    serviceClient.PutParam(Encoding.UTF8.GetString(e.Message));    
                     break;
                 case "smartAlarm":
-                    //chamar metodo de gravar no ficheiro
                     serviceClient.PutAlarm(Encoding.UTF8.GetString(e.Message));
                     break;
             }
         }
-/*
-        private static void saveParamData(string sensor)
-        {
-            string paramDataXML = AppDomain.CurrentDomain.BaseDirectory.ToString() + @"App_Data\param-data.xml";
-            string paramDataXSD = AppDomain.CurrentDomain.BaseDirectory.ToString() + @"App_Data\param-data.xsd";
-
-            XmlDocument docParamData = new XmlDocument();
-            docParamData.Load(paramDataXML);
-
-            XmlDocument docSensor = new XmlDocument();
-            docSensor.LoadXml(sensor);
-
-            //check if there is a root
-            XmlNode root = docParamData.SelectSingleNode("/sensors");
-            if(root == null)
-            {
-                XmlElement rootEl = docParamData.CreateElement("sensors");
-                docParamData.AppendChild(rootEl);
-                root = docParamData.SelectSingleNode("/sensors");
-            }
-
-            XmlNode sensorElement = docParamData.ImportNode(docSensor.SelectSingleNode("/sensor"), true);
-            root.AppendChild(sensorElement);
-
-           // serviceClient.PutParam();
-
-           // docParamData.Save(paramDataXML);
-        }*/
 
         static void Main(string[] args)
         {
