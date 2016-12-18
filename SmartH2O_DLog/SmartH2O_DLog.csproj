@@ -39,6 +39,8 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -54,6 +56,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Service References\SmartH20_Service\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -61,18 +68,47 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
+    <None Include="Service References\SmartH20_Service\SmartH2O_DLog.SmartH20_Service.AlarmInfo.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\SmartH20_Service\SmartH2O_DLog.SmartH20_Service.ParamVals.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\SmartH20_Service\SmartH2O_Service.wsdl" />
+    <None Include="Service References\SmartH20_Service\SmartH2O_Service.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\SmartH20_Service\SmartH2O_Service1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\SmartH20_Service\SmartH2O_Service2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\SmartH20_Service\SmartH2O_Service3.xsd">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\param-data.xml" />
+    <None Include="Service References\SmartH20_Service\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\SmartH20_Service\configuration.svcinfo" />
+    <None Include="Service References\SmartH20_Service\configuration91.svcinfo" />
+    <None Include="Service References\SmartH20_Service\SmartH2O_Service.disco" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\SmartH20_Service\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

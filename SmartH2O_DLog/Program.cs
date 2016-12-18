@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,21 +12,25 @@ namespace SmartH2O_DLog
 {
     class Program
     {
+        private static SmartH20_Service.SmartH2O_ServiceClient serviceClient;
+
         static void client_MqttMsgPublishReceived(object sender, MqttMsgPublishEventArgs e)
         {
             Console.WriteLine(e.Topic + ": \n" + Encoding.UTF8.GetString(e.Message));
             switch (e.Topic)
             {
                 case "smartDU":
-                    saveParamData(Encoding.UTF8.GetString(e.Message));
+                    //saveParamData();
+                    serviceClient.PutParam(Encoding.UTF8.GetString(e.Message));
                     //chamar metodo de gravar no ficheiro      
                     break;
                 case "smartAlarm":
                     //chamar metodo de gravar no ficheiro
+                    serviceClient.PutAlarm(Encoding.UTF8.GetString(e.Message));
                     break;
             }
         }
-
+/*
         private static void saveParamData(string sensor)
         {
             string paramDataXML = AppDomain.CurrentDomain.BaseDirectory.ToString() + @"App_Data\param-data.xml";
@@ -49,11 +54,14 @@ namespace SmartH2O_DLog
             XmlNode sensorElement = docParamData.ImportNode(docSensor.SelectSingleNode("/sensor"), true);
             root.AppendChild(sensorElement);
 
-            docParamData.Save(paramDataXML);
-        }
+           // serviceClient.PutParam();
+
+           // docParamData.Save(paramDataXML);
+        }*/
 
         static void Main(string[] args)
         {
+            serviceClient = new SmartH20_Service.SmartH2O_ServiceClient();
             Console.WriteLine("Connecting ....");
             MqttClient m_cClient = new MqttClient(Properties.Resources.brokerIP);
             string[] m_strTopicsInfo = { "smartDU" , "smartAlarm" };
