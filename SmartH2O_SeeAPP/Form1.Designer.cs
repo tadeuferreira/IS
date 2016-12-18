@@ -33,7 +33,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.textBoxWaterQuality = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.checkBoxPHWater = new System.Windows.Forms.CheckBox();
             this.checkBoxCL2Water = new System.Windows.Forms.CheckBox();
@@ -110,13 +110,13 @@
             this.label4.TabIndex = 6;
             this.label4.Text = "Water Quality:";
             // 
-            // textBox4
+            // textBoxWaterQuality
             // 
-            this.textBox4.Location = new System.Drawing.Point(368, 40);
-            this.textBox4.Multiline = true;
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(322, 127);
-            this.textBox4.TabIndex = 7;
+            this.textBoxWaterQuality.Location = new System.Drawing.Point(368, 40);
+            this.textBoxWaterQuality.Multiline = true;
+            this.textBoxWaterQuality.Name = "textBoxWaterQuality";
+            this.textBoxWaterQuality.Size = new System.Drawing.Size(322, 127);
+            this.textBoxWaterQuality.TabIndex = 7;
             // 
             // label5
             // 
@@ -136,6 +136,7 @@
             this.checkBoxPHWater.TabIndex = 9;
             this.checkBoxPHWater.Text = "PH";
             this.checkBoxPHWater.UseVisualStyleBackColor = true;
+            this.checkBoxPHWater.CheckedChanged += new System.EventHandler(this.checkBoxPHWater_CheckedChanged);
             // 
             // checkBoxCL2Water
             // 
@@ -146,6 +147,7 @@
             this.checkBoxCL2Water.TabIndex = 10;
             this.checkBoxCL2Water.Text = "CI2";
             this.checkBoxCL2Water.UseVisualStyleBackColor = true;
+            this.checkBoxCL2Water.CheckedChanged += new System.EventHandler(this.checkBoxCL2Water_CheckedChanged);
             // 
             // checkBoxNH3Water
             // 
@@ -156,6 +158,7 @@
             this.checkBoxNH3Water.TabIndex = 11;
             this.checkBoxNH3Water.Text = "NH3";
             this.checkBoxNH3Water.UseVisualStyleBackColor = true;
+            this.checkBoxNH3Water.CheckedChanged += new System.EventHandler(this.checkBoxNH3Water_CheckedChanged);
             // 
             // checkBoxAllWater
             // 
@@ -166,6 +169,7 @@
             this.checkBoxAllWater.TabIndex = 12;
             this.checkBoxAllWater.Text = "All";
             this.checkBoxAllWater.UseVisualStyleBackColor = true;
+            this.checkBoxAllWater.CheckedChanged += new System.EventHandler(this.checkBoxAllWater_CheckedChanged);
             // 
             // label7
             // 
@@ -406,7 +410,7 @@
             this.Controls.Add(this.checkBoxCL2Water);
             this.Controls.Add(this.checkBoxPHWater);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.textBox4);
+            this.Controls.Add(this.textBoxWaterQuality);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -428,7 +432,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.TextBox textBoxWaterQuality;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.CheckBox checkBoxPHWater;
         private System.Windows.Forms.CheckBox checkBoxCL2Water;
