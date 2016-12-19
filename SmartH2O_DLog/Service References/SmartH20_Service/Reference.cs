@@ -23,13 +23,19 @@ namespace SmartH2O_DLog.SmartH20_Service {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Collections.Generic.List<double> AverageField;
+        private double[] AverageField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Collections.Generic.List<double> MaxField;
+        private int IdField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Collections.Generic.List<double> MinField;
+        private double[] MaxField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private double[] MinField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TypeField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -42,7 +48,7 @@ namespace SmartH2O_DLog.SmartH20_Service {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Collections.Generic.List<double> Average {
+        public double[] Average {
             get {
                 return this.AverageField;
             }
@@ -55,7 +61,20 @@ namespace SmartH2O_DLog.SmartH20_Service {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Collections.Generic.List<double> Max {
+        public int Id {
+            get {
+                return this.IdField;
+            }
+            set {
+                if ((this.IdField.Equals(value) != true)) {
+                    this.IdField = value;
+                    this.RaisePropertyChanged("Id");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public double[] Max {
             get {
                 return this.MaxField;
             }
@@ -68,7 +87,7 @@ namespace SmartH2O_DLog.SmartH20_Service {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Collections.Generic.List<double> Min {
+        public double[] Min {
             get {
                 return this.MinField;
             }
@@ -76,6 +95,19 @@ namespace SmartH2O_DLog.SmartH20_Service {
                 if ((object.ReferenceEquals(this.MinField, value) != true)) {
                     this.MinField = value;
                     this.RaisePropertyChanged("Min");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Type {
+            get {
+                return this.TypeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TypeField, value) != true)) {
+                    this.TypeField = value;
+                    this.RaisePropertyChanged("Type");
                 }
             }
         }
@@ -100,31 +132,31 @@ namespace SmartH2O_DLog.SmartH20_Service {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string AlarmTypeField;
+        private System.DateTime DatetimeField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string DateField;
+        private int IdField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private double HigherTriggerValueField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private double LowerTriggerValueField;
+        private float LowerBoundField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string MessageField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int SensorIdField;
+        private float SensorValField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string SensorTypeField;
+        private string TriggerTypeField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private double TriggerValueField;
+        private float TriggerValueField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private double ValueField;
+        private string TypeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private float UpperBoundField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -137,53 +169,40 @@ namespace SmartH2O_DLog.SmartH20_Service {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string AlarmType {
+        public System.DateTime Datetime {
             get {
-                return this.AlarmTypeField;
+                return this.DatetimeField;
             }
             set {
-                if ((object.ReferenceEquals(this.AlarmTypeField, value) != true)) {
-                    this.AlarmTypeField = value;
-                    this.RaisePropertyChanged("AlarmType");
+                if ((this.DatetimeField.Equals(value) != true)) {
+                    this.DatetimeField = value;
+                    this.RaisePropertyChanged("Datetime");
                 }
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Date {
+        public int Id {
             get {
-                return this.DateField;
+                return this.IdField;
             }
             set {
-                if ((object.ReferenceEquals(this.DateField, value) != true)) {
-                    this.DateField = value;
-                    this.RaisePropertyChanged("Date");
+                if ((this.IdField.Equals(value) != true)) {
+                    this.IdField = value;
+                    this.RaisePropertyChanged("Id");
                 }
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public double HigherTriggerValue {
+        public float LowerBound {
             get {
-                return this.HigherTriggerValueField;
+                return this.LowerBoundField;
             }
             set {
-                if ((this.HigherTriggerValueField.Equals(value) != true)) {
-                    this.HigherTriggerValueField = value;
-                    this.RaisePropertyChanged("HigherTriggerValue");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public double LowerTriggerValue {
-            get {
-                return this.LowerTriggerValueField;
-            }
-            set {
-                if ((this.LowerTriggerValueField.Equals(value) != true)) {
-                    this.LowerTriggerValueField = value;
-                    this.RaisePropertyChanged("LowerTriggerValue");
+                if ((this.LowerBoundField.Equals(value) != true)) {
+                    this.LowerBoundField = value;
+                    this.RaisePropertyChanged("LowerBound");
                 }
             }
         }
@@ -202,33 +221,33 @@ namespace SmartH2O_DLog.SmartH20_Service {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int SensorId {
+        public float SensorVal {
             get {
-                return this.SensorIdField;
+                return this.SensorValField;
             }
             set {
-                if ((this.SensorIdField.Equals(value) != true)) {
-                    this.SensorIdField = value;
-                    this.RaisePropertyChanged("SensorId");
+                if ((this.SensorValField.Equals(value) != true)) {
+                    this.SensorValField = value;
+                    this.RaisePropertyChanged("SensorVal");
                 }
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string SensorType {
+        public string TriggerType {
             get {
-                return this.SensorTypeField;
+                return this.TriggerTypeField;
             }
             set {
-                if ((object.ReferenceEquals(this.SensorTypeField, value) != true)) {
-                    this.SensorTypeField = value;
-                    this.RaisePropertyChanged("SensorType");
+                if ((object.ReferenceEquals(this.TriggerTypeField, value) != true)) {
+                    this.TriggerTypeField = value;
+                    this.RaisePropertyChanged("TriggerType");
                 }
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public double TriggerValue {
+        public float TriggerValue {
             get {
                 return this.TriggerValueField;
             }
@@ -241,14 +260,27 @@ namespace SmartH2O_DLog.SmartH20_Service {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public double Value {
+        public string Type {
             get {
-                return this.ValueField;
+                return this.TypeField;
             }
             set {
-                if ((this.ValueField.Equals(value) != true)) {
-                    this.ValueField = value;
-                    this.RaisePropertyChanged("Value");
+                if ((object.ReferenceEquals(this.TypeField, value) != true)) {
+                    this.TypeField = value;
+                    this.RaisePropertyChanged("Type");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public float UpperBound {
+            get {
+                return this.UpperBoundField;
+            }
+            set {
+                if ((this.UpperBoundField.Equals(value) != true)) {
+                    this.UpperBoundField = value;
+                    this.RaisePropertyChanged("UpperBound");
                 }
             }
         }
@@ -280,34 +312,34 @@ namespace SmartH2O_DLog.SmartH20_Service {
         System.Threading.Tasks.Task PutAlarmAsync(string xml);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISmartH2O_Service/GetParamHourly", ReplyAction="http://tempuri.org/ISmartH2O_Service/GetParamHourlyResponse")]
-        SmartH2O_DLog.SmartH20_Service.ParamVals GetParamHourly(string day);
+        SmartH2O_DLog.SmartH20_Service.ParamVals[] GetParamHourly(System.DateTime dt);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISmartH2O_Service/GetParamHourly", ReplyAction="http://tempuri.org/ISmartH2O_Service/GetParamHourlyResponse")]
-        System.Threading.Tasks.Task<SmartH2O_DLog.SmartH20_Service.ParamVals> GetParamHourlyAsync(string day);
+        System.Threading.Tasks.Task<SmartH2O_DLog.SmartH20_Service.ParamVals[]> GetParamHourlyAsync(System.DateTime dt);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISmartH2O_Service/GetParamDaily", ReplyAction="http://tempuri.org/ISmartH2O_Service/GetParamDailyResponse")]
-        SmartH2O_DLog.SmartH20_Service.ParamVals GetParamDaily(string startDay, string endDay);
+        SmartH2O_DLog.SmartH20_Service.ParamVals[] GetParamDaily(System.DateTime dtStart, System.DateTime dtEnd);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISmartH2O_Service/GetParamDaily", ReplyAction="http://tempuri.org/ISmartH2O_Service/GetParamDailyResponse")]
-        System.Threading.Tasks.Task<SmartH2O_DLog.SmartH20_Service.ParamVals> GetParamDailyAsync(string startDay, string endDay);
+        System.Threading.Tasks.Task<SmartH2O_DLog.SmartH20_Service.ParamVals[]> GetParamDailyAsync(System.DateTime dtStart, System.DateTime dtEnd);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISmartH2O_Service/GetParamWeekly", ReplyAction="http://tempuri.org/ISmartH2O_Service/GetParamWeeklyResponse")]
-        SmartH2O_DLog.SmartH20_Service.ParamVals GetParamWeekly(string day);
+        SmartH2O_DLog.SmartH20_Service.ParamVals[] GetParamWeekly(System.DateTime dt);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISmartH2O_Service/GetParamWeekly", ReplyAction="http://tempuri.org/ISmartH2O_Service/GetParamWeeklyResponse")]
-        System.Threading.Tasks.Task<SmartH2O_DLog.SmartH20_Service.ParamVals> GetParamWeeklyAsync(string day);
+        System.Threading.Tasks.Task<SmartH2O_DLog.SmartH20_Service.ParamVals[]> GetParamWeeklyAsync(System.DateTime dt);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISmartH2O_Service/GetAlarmDaily", ReplyAction="http://tempuri.org/ISmartH2O_Service/GetAlarmDailyResponse")]
-        System.Collections.Generic.List<SmartH2O_DLog.SmartH20_Service.AlarmInfo> GetAlarmDaily(string day);
+        SmartH2O_DLog.SmartH20_Service.AlarmInfo[] GetAlarmDaily(System.DateTime dt);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISmartH2O_Service/GetAlarmDaily", ReplyAction="http://tempuri.org/ISmartH2O_Service/GetAlarmDailyResponse")]
-        System.Threading.Tasks.Task<System.Collections.Generic.List<SmartH2O_DLog.SmartH20_Service.AlarmInfo>> GetAlarmDailyAsync(string day);
+        System.Threading.Tasks.Task<SmartH2O_DLog.SmartH20_Service.AlarmInfo[]> GetAlarmDailyAsync(System.DateTime dt);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISmartH2O_Service/GetAlarmInterval", ReplyAction="http://tempuri.org/ISmartH2O_Service/GetAlarmIntervalResponse")]
-        System.Collections.Generic.List<SmartH2O_DLog.SmartH20_Service.AlarmInfo> GetAlarmInterval(string startDay, string endDay);
+        SmartH2O_DLog.SmartH20_Service.AlarmInfo[] GetAlarmInterval(System.DateTime dtStart, System.DateTime dtEnd);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISmartH2O_Service/GetAlarmInterval", ReplyAction="http://tempuri.org/ISmartH2O_Service/GetAlarmIntervalResponse")]
-        System.Threading.Tasks.Task<System.Collections.Generic.List<SmartH2O_DLog.SmartH20_Service.AlarmInfo>> GetAlarmIntervalAsync(string startDay, string endDay);
+        System.Threading.Tasks.Task<SmartH2O_DLog.SmartH20_Service.AlarmInfo[]> GetAlarmIntervalAsync(System.DateTime dtStart, System.DateTime dtEnd);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -353,44 +385,44 @@ namespace SmartH2O_DLog.SmartH20_Service {
             return base.Channel.PutAlarmAsync(xml);
         }
         
-        public SmartH2O_DLog.SmartH20_Service.ParamVals GetParamHourly(string day) {
-            return base.Channel.GetParamHourly(day);
+        public SmartH2O_DLog.SmartH20_Service.ParamVals[] GetParamHourly(System.DateTime dt) {
+            return base.Channel.GetParamHourly(dt);
         }
         
-        public System.Threading.Tasks.Task<SmartH2O_DLog.SmartH20_Service.ParamVals> GetParamHourlyAsync(string day) {
-            return base.Channel.GetParamHourlyAsync(day);
+        public System.Threading.Tasks.Task<SmartH2O_DLog.SmartH20_Service.ParamVals[]> GetParamHourlyAsync(System.DateTime dt) {
+            return base.Channel.GetParamHourlyAsync(dt);
         }
         
-        public SmartH2O_DLog.SmartH20_Service.ParamVals GetParamDaily(string startDay, string endDay) {
-            return base.Channel.GetParamDaily(startDay, endDay);
+        public SmartH2O_DLog.SmartH20_Service.ParamVals[] GetParamDaily(System.DateTime dtStart, System.DateTime dtEnd) {
+            return base.Channel.GetParamDaily(dtStart, dtEnd);
         }
         
-        public System.Threading.Tasks.Task<SmartH2O_DLog.SmartH20_Service.ParamVals> GetParamDailyAsync(string startDay, string endDay) {
-            return base.Channel.GetParamDailyAsync(startDay, endDay);
+        public System.Threading.Tasks.Task<SmartH2O_DLog.SmartH20_Service.ParamVals[]> GetParamDailyAsync(System.DateTime dtStart, System.DateTime dtEnd) {
+            return base.Channel.GetParamDailyAsync(dtStart, dtEnd);
         }
         
-        public SmartH2O_DLog.SmartH20_Service.ParamVals GetParamWeekly(string day) {
-            return base.Channel.GetParamWeekly(day);
+        public SmartH2O_DLog.SmartH20_Service.ParamVals[] GetParamWeekly(System.DateTime dt) {
+            return base.Channel.GetParamWeekly(dt);
         }
         
-        public System.Threading.Tasks.Task<SmartH2O_DLog.SmartH20_Service.ParamVals> GetParamWeeklyAsync(string day) {
-            return base.Channel.GetParamWeeklyAsync(day);
+        public System.Threading.Tasks.Task<SmartH2O_DLog.SmartH20_Service.ParamVals[]> GetParamWeeklyAsync(System.DateTime dt) {
+            return base.Channel.GetParamWeeklyAsync(dt);
         }
         
-        public System.Collections.Generic.List<SmartH2O_DLog.SmartH20_Service.AlarmInfo> GetAlarmDaily(string day) {
-            return base.Channel.GetAlarmDaily(day);
+        public SmartH2O_DLog.SmartH20_Service.AlarmInfo[] GetAlarmDaily(System.DateTime dt) {
+            return base.Channel.GetAlarmDaily(dt);
         }
         
-        public System.Threading.Tasks.Task<System.Collections.Generic.List<SmartH2O_DLog.SmartH20_Service.AlarmInfo>> GetAlarmDailyAsync(string day) {
-            return base.Channel.GetAlarmDailyAsync(day);
+        public System.Threading.Tasks.Task<SmartH2O_DLog.SmartH20_Service.AlarmInfo[]> GetAlarmDailyAsync(System.DateTime dt) {
+            return base.Channel.GetAlarmDailyAsync(dt);
         }
         
-        public System.Collections.Generic.List<SmartH2O_DLog.SmartH20_Service.AlarmInfo> GetAlarmInterval(string startDay, string endDay) {
-            return base.Channel.GetAlarmInterval(startDay, endDay);
+        public SmartH2O_DLog.SmartH20_Service.AlarmInfo[] GetAlarmInterval(System.DateTime dtStart, System.DateTime dtEnd) {
+            return base.Channel.GetAlarmInterval(dtStart, dtEnd);
         }
         
-        public System.Threading.Tasks.Task<System.Collections.Generic.List<SmartH2O_DLog.SmartH20_Service.AlarmInfo>> GetAlarmIntervalAsync(string startDay, string endDay) {
-            return base.Channel.GetAlarmIntervalAsync(startDay, endDay);
+        public System.Threading.Tasks.Task<SmartH2O_DLog.SmartH20_Service.AlarmInfo[]> GetAlarmIntervalAsync(System.DateTime dtStart, System.DateTime dtEnd) {
+            return base.Channel.GetAlarmIntervalAsync(dtStart, dtEnd);
         }
     }
 }

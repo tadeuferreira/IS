@@ -24,7 +24,6 @@ namespace SmartH2O_Alarm
         Boolean activated = true;
         Boolean isValid = false;
         Boolean isValidRule = false;
-        string ValidationMessageRule;
         XmlDocument docRules = new XmlDocument();
         MqttClient ciClient = new MqttClient(Properties.Resources.bokerIP);
         string[] m_strTopicsInfo = {"smartDU"};
@@ -35,7 +34,6 @@ namespace SmartH2O_Alarm
         public Form1()
         {
             InitializeComponent();
-            Console.WriteLine(CultureInfo.CurrentCulture);
 
             ciClient.Connect(Guid.NewGuid().ToString());
 
@@ -122,9 +120,6 @@ namespace SmartH2O_Alarm
                                     if (nodeRule.Attributes["type"].Value == nodeData.Attributes["type"].Value)
                                     {
                                         float ruleval = float.Parse(nodeRule.Attributes["value"].Value);
-                                        Console.WriteLine(CultureInfo.CurrentCulture);
-                                        Console.WriteLine(CultureInfo.CurrentUICulture);
-
                                         float dataVal = float.Parse(nodeData.Attributes["val"].Value);
                                         if (dataVal < ruleval)
                                             triggerAlarm(nodeRule, nodeData, alarmType);

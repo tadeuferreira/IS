@@ -28,50 +28,50 @@
   <xs:element name="GetParamHourly">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="day" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="dt" type="xs:dateTime" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="GetParamHourlyResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/SmartH2O_Service" minOccurs="0" name="GetParamHourlyResult" nillable="true" type="q1:ParamVals" />
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/SmartH2O_Service" minOccurs="0" name="GetParamHourlyResult" nillable="true" type="q1:ArrayOfParamVals" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="GetParamDaily">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="startDay" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="endDay" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="dtStart" type="xs:dateTime" />
+        <xs:element minOccurs="0" name="dtEnd" type="xs:dateTime" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="GetParamDailyResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/SmartH2O_Service" minOccurs="0" name="GetParamDailyResult" nillable="true" type="q2:ParamVals" />
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/SmartH2O_Service" minOccurs="0" name="GetParamDailyResult" nillable="true" type="q2:ArrayOfParamVals" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="GetParamWeekly">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="day" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="dt" type="xs:dateTime" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="GetParamWeeklyResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/SmartH2O_Service" minOccurs="0" name="GetParamWeeklyResult" nillable="true" type="q3:ParamVals" />
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/SmartH2O_Service" minOccurs="0" name="GetParamWeeklyResult" nillable="true" type="q3:ArrayOfParamVals" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="GetAlarmDaily">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="day" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="dt" type="xs:dateTime" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -85,8 +85,8 @@
   <xs:element name="GetAlarmInterval">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="startDay" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="endDay" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="dtStart" type="xs:dateTime" />
+        <xs:element minOccurs="0" name="dtEnd" type="xs:dateTime" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

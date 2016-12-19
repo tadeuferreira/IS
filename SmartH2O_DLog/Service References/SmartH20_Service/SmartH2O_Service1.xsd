@@ -3,23 +3,31 @@
   <xs:import schemaLocation="http://smarth2oservice-5.apphb.com/SmartH2O_Service.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
   <xs:complexType name="AlarmInfo">
     <xs:sequence>
-      <xs:element minOccurs="0" name="AlarmType" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Date" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="HigherTriggerValue" type="xs:double" />
-      <xs:element minOccurs="0" name="LowerTriggerValue" type="xs:double" />
+      <xs:element minOccurs="0" name="Datetime" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="LowerBound" type="xs:float" />
       <xs:element minOccurs="0" name="Message" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="SensorId" type="xs:int" />
-      <xs:element minOccurs="0" name="SensorType" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="TriggerValue" type="xs:double" />
-      <xs:element minOccurs="0" name="Value" type="xs:double" />
+      <xs:element minOccurs="0" name="SensorVal" type="xs:float" />
+      <xs:element minOccurs="0" name="TriggerType" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TriggerValue" type="xs:float" />
+      <xs:element minOccurs="0" name="Type" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UpperBound" type="xs:float" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="AlarmInfo" nillable="true" type="tns:AlarmInfo" />
+  <xs:complexType name="ArrayOfParamVals">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ParamVals" nillable="true" type="tns:ParamVals" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfParamVals" nillable="true" type="tns:ArrayOfParamVals" />
   <xs:complexType name="ParamVals">
     <xs:sequence>
       <xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Average" nillable="true" type="q1:ArrayOfdouble" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
       <xs:element xmlns:q2="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Max" nillable="true" type="q2:ArrayOfdouble" />
       <xs:element xmlns:q3="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Min" nillable="true" type="q3:ArrayOfdouble" />
+      <xs:element minOccurs="0" name="Type" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ParamVals" nillable="true" type="tns:ParamVals" />

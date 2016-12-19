@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="e280bc35-476c-4c9b-89d2-6428096d5a87" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="52489fa4-019a-44a7-8115-518e75658d55" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
     <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
@@ -9,9 +9,7 @@
     <GenerateInternalTypes>false</GenerateInternalTypes>
     <GenerateMessageContracts>false</GenerateMessageContracts>
     <NamespaceMappings />
-    <CollectionMappings>
-      <CollectionMapping TypeName="System.Collections.Generic.List`1" Category="List" />
-    </CollectionMappings>
+    <CollectionMappings />
     <GenerateSerializableTypes>true</GenerateSerializableTypes>
     <Serializer>Auto</Serializer>
     <UseSerializerForFaults>true</UseSerializerForFaults>
@@ -24,12 +22,12 @@
     <MetadataSource Address="http://smarth2oservice-5.apphb.com/SmartH2O_Service.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="SmartH2O_Service.xsd" MetadataType="Schema" ID="2b8b8304-0c3b-4fea-883c-12e29def161f" SourceId="1" SourceUrl="http://smarth2oservice-5.apphb.com/SmartH2O_Service.svc?xsd=xsd3" />
-    <MetadataFile FileName="SmartH2O_Service1.xsd" MetadataType="Schema" ID="3350515c-bdd7-4e2a-aa2a-bf962299b120" SourceId="1" SourceUrl="http://smarth2oservice-5.apphb.com/SmartH2O_Service.svc?xsd=xsd1" />
-    <MetadataFile FileName="SmartH2O_Service.disco" MetadataType="Disco" ID="c536f5d3-aaf0-4500-b647-4ab1dd8dceed" SourceId="1" SourceUrl="http://smarth2oservice-5.apphb.com/SmartH2O_Service.svc?disco" />
-    <MetadataFile FileName="SmartH2O_Service2.xsd" MetadataType="Schema" ID="8032df5b-0354-4609-8cd0-9f3e8b4339b5" SourceId="1" SourceUrl="http://smarth2oservice-5.apphb.com/SmartH2O_Service.svc?xsd=xsd2" />
-    <MetadataFile FileName="SmartH2O_Service3.xsd" MetadataType="Schema" ID="e36254a6-4847-4138-b030-5e393bcad939" SourceId="1" SourceUrl="http://smarth2oservice-5.apphb.com/SmartH2O_Service.svc?xsd=xsd0" />
-    <MetadataFile FileName="SmartH2O_Service.wsdl" MetadataType="Wsdl" ID="b94f78c7-2881-4883-adaf-1c2486025c78" SourceId="1" SourceUrl="http://smarth2oservice-5.apphb.com/SmartH2O_Service.svc?wsdl" />
+    <MetadataFile FileName="SmartH2O_Service.xsd" MetadataType="Schema" ID="576daa85-c534-497d-88d5-485c64228d98" SourceId="1" SourceUrl="http://smarth2oservice-5.apphb.com/SmartH2O_Service.svc?xsd=xsd3" />
+    <MetadataFile FileName="SmartH2O_Service1.xsd" MetadataType="Schema" ID="348365bc-8253-4c7b-9016-09de1ce6fd1a" SourceId="1" SourceUrl="http://smarth2oservice-5.apphb.com/SmartH2O_Service.svc?xsd=xsd1" />
+    <MetadataFile FileName="SmartH2O_Service.disco" MetadataType="Disco" ID="9d113bb5-3737-4eaf-b9dd-d75b53449ed2" SourceId="1" SourceUrl="http://smarth2oservice-5.apphb.com/SmartH2O_Service.svc?disco" />
+    <MetadataFile FileName="SmartH2O_Service2.xsd" MetadataType="Schema" ID="58e78e60-082e-4479-b77f-6a37070e5c50" SourceId="1" SourceUrl="http://smarth2oservice-5.apphb.com/SmartH2O_Service.svc?xsd=xsd2" />
+    <MetadataFile FileName="SmartH2O_Service3.xsd" MetadataType="Schema" ID="f269c60f-dd7c-40ca-8f81-e91ffc185fd0" SourceId="1" SourceUrl="http://smarth2oservice-5.apphb.com/SmartH2O_Service.svc?xsd=xsd0" />
+    <MetadataFile FileName="SmartH2O_Service.wsdl" MetadataType="Wsdl" ID="90924448-9948-4558-9f56-cabbd7571879" SourceId="1" SourceUrl="http://smarth2oservice-5.apphb.com/SmartH2O_Service.svc?wsdl" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
