@@ -28,65 +28,51 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.label1 = new System.Windows.Forms.Label();
-            this.textBoxAlarmInfo = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.textBoxWaterQuality = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.checkBoxPHWater = new System.Windows.Forms.CheckBox();
-            this.checkBoxCL2Water = new System.Windows.Forms.CheckBox();
-            this.checkBoxNH3Water = new System.Windows.Forms.CheckBox();
-            this.checkBoxAllWater = new System.Windows.Forms.CheckBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.checkBox5 = new System.Windows.Forms.CheckBox();
-            this.checkBox6 = new System.Windows.Forms.CheckBox();
-            this.checkBox7 = new System.Windows.Forms.CheckBox();
-            this.checkBox8 = new System.Windows.Forms.CheckBox();
             this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.label10 = new System.Windows.Forms.Label();
-            this.checkBox9 = new System.Windows.Forms.CheckBox();
-            this.checkBox10 = new System.Windows.Forms.CheckBox();
-            this.checkBox11 = new System.Windows.Forms.CheckBox();
-            this.checkBox12 = new System.Windows.Forms.CheckBox();
-            this.label11 = new System.Windows.Forms.Label();
             this.dateTimePickerAlarmStart = new System.Windows.Forms.DateTimePicker();
             this.dateTimePickerAlarmEnd = new System.Windows.Forms.DateTimePicker();
-            this.dateTimePicker3 = new System.Windows.Forms.DateTimePicker();
+            this.dateTimePickerGraph = new System.Windows.Forms.DateTimePicker();
             this.AlarmBetweenDates = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.dateTimePicker4 = new System.Windows.Forms.DateTimePicker();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            this.buttonGraphDay = new System.Windows.Forms.Button();
+            this.buttonGraphWeek = new System.Windows.Forms.Button();
+            this.listViewAlarmInfo = new System.Windows.Forms.ListView();
+            this.dateTimePickerAlarmDaily = new System.Windows.Forms.DateTimePicker();
+            this.buttonAlarmInfoDaily = new System.Windows.Forms.Button();
+            this.label12 = new System.Windows.Forms.Label();
+            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.dateTimePickerGraphStart = new System.Windows.Forms.DateTimePicker();
+            this.label6 = new System.Windows.Forms.Label();
+            this.dateTimePickerGraphEnd = new System.Windows.Forms.DateTimePicker();
+            this.buttonGraphBetweenDates = new System.Windows.Forms.Button();
+            this.checkBoxPH = new System.Windows.Forms.CheckBox();
+            this.checkBoxCL2 = new System.Windows.Forms.CheckBox();
+            this.checkBoxNH3 = new System.Windows.Forms.CheckBox();
+            this.comboBoxTypeGraphs = new System.Windows.Forms.ComboBox();
+            this.label7 = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 13);
+            this.label1.Location = new System.Drawing.Point(12, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(91, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "Alarm Information:";
             // 
-            // textBoxAlarmInfo
-            // 
-            this.textBoxAlarmInfo.Location = new System.Drawing.Point(16, 40);
-            this.textBoxAlarmInfo.Multiline = true;
-            this.textBoxAlarmInfo.Name = "textBoxAlarmInfo";
-            this.textBoxAlarmInfo.Size = new System.Drawing.Size(296, 127);
-            this.textBoxAlarmInfo.TabIndex = 1;
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(8, 170);
+            this.label2.Location = new System.Drawing.Point(12, 166);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(71, 13);
             this.label2.TabIndex = 2;
@@ -95,331 +81,265 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(178, 192);
+            this.label3.Location = new System.Drawing.Point(249, 173);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(16, 13);
             this.label3.TabIndex = 5;
             this.label3.Text = "to";
             // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(365, 13);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(74, 13);
-            this.label4.TabIndex = 6;
-            this.label4.Text = "Water Quality:";
-            // 
-            // textBoxWaterQuality
-            // 
-            this.textBoxWaterQuality.Location = new System.Drawing.Point(368, 40);
-            this.textBoxWaterQuality.Multiline = true;
-            this.textBoxWaterQuality.Name = "textBoxWaterQuality";
-            this.textBoxWaterQuality.Size = new System.Drawing.Size(322, 127);
-            this.textBoxWaterQuality.TabIndex = 7;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(368, 181);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(96, 13);
-            this.label5.TabIndex = 8;
-            this.label5.Text = "Select Parameters:";
-            // 
-            // checkBoxPHWater
-            // 
-            this.checkBoxPHWater.AutoSize = true;
-            this.checkBoxPHWater.Location = new System.Drawing.Point(514, 180);
-            this.checkBoxPHWater.Name = "checkBoxPHWater";
-            this.checkBoxPHWater.Size = new System.Drawing.Size(41, 17);
-            this.checkBoxPHWater.TabIndex = 9;
-            this.checkBoxPHWater.Text = "PH";
-            this.checkBoxPHWater.UseVisualStyleBackColor = true;
-            this.checkBoxPHWater.CheckedChanged += new System.EventHandler(this.checkBoxPHWater_CheckedChanged);
-            // 
-            // checkBoxCL2Water
-            // 
-            this.checkBoxCL2Water.AutoSize = true;
-            this.checkBoxCL2Water.Location = new System.Drawing.Point(562, 180);
-            this.checkBoxCL2Water.Name = "checkBoxCL2Water";
-            this.checkBoxCL2Water.Size = new System.Drawing.Size(42, 17);
-            this.checkBoxCL2Water.TabIndex = 10;
-            this.checkBoxCL2Water.Text = "CI2";
-            this.checkBoxCL2Water.UseVisualStyleBackColor = true;
-            this.checkBoxCL2Water.CheckedChanged += new System.EventHandler(this.checkBoxCL2Water_CheckedChanged);
-            // 
-            // checkBoxNH3Water
-            // 
-            this.checkBoxNH3Water.AutoSize = true;
-            this.checkBoxNH3Water.Location = new System.Drawing.Point(610, 180);
-            this.checkBoxNH3Water.Name = "checkBoxNH3Water";
-            this.checkBoxNH3Water.Size = new System.Drawing.Size(48, 17);
-            this.checkBoxNH3Water.TabIndex = 11;
-            this.checkBoxNH3Water.Text = "NH3";
-            this.checkBoxNH3Water.UseVisualStyleBackColor = true;
-            this.checkBoxNH3Water.CheckedChanged += new System.EventHandler(this.checkBoxNH3Water_CheckedChanged);
-            // 
-            // checkBoxAllWater
-            // 
-            this.checkBoxAllWater.AutoSize = true;
-            this.checkBoxAllWater.Location = new System.Drawing.Point(470, 180);
-            this.checkBoxAllWater.Name = "checkBoxAllWater";
-            this.checkBoxAllWater.Size = new System.Drawing.Size(37, 17);
-            this.checkBoxAllWater.TabIndex = 12;
-            this.checkBoxAllWater.Text = "All";
-            this.checkBoxAllWater.UseVisualStyleBackColor = true;
-            this.checkBoxAllWater.CheckedChanged += new System.EventHandler(this.checkBoxAllWater_CheckedChanged);
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(16, 231);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(103, 13);
-            this.label7.TabIndex = 14;
-            this.label7.Text = "Daily Graph by hour:";
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Location = new System.Drawing.Point(19, 257);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(293, 162);
-            this.pictureBox1.TabIndex = 15;
-            this.pictureBox1.TabStop = false;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(19, 440);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(96, 13);
-            this.label6.TabIndex = 16;
-            this.label6.Text = "Select Parameters:";
-            // 
-            // checkBox5
-            // 
-            this.checkBox5.AutoSize = true;
-            this.checkBox5.Location = new System.Drawing.Point(121, 439);
-            this.checkBox5.Name = "checkBox5";
-            this.checkBox5.Size = new System.Drawing.Size(37, 17);
-            this.checkBox5.TabIndex = 17;
-            this.checkBox5.Text = "All";
-            this.checkBox5.UseVisualStyleBackColor = true;
-            // 
-            // checkBox6
-            // 
-            this.checkBox6.AutoSize = true;
-            this.checkBox6.Location = new System.Drawing.Point(164, 439);
-            this.checkBox6.Name = "checkBox6";
-            this.checkBox6.Size = new System.Drawing.Size(41, 17);
-            this.checkBox6.TabIndex = 18;
-            this.checkBox6.Text = "PH";
-            this.checkBox6.UseVisualStyleBackColor = true;
-            // 
-            // checkBox7
-            // 
-            this.checkBox7.AutoSize = true;
-            this.checkBox7.Location = new System.Drawing.Point(211, 439);
-            this.checkBox7.Name = "checkBox7";
-            this.checkBox7.Size = new System.Drawing.Size(42, 17);
-            this.checkBox7.TabIndex = 19;
-            this.checkBox7.Text = "CI2";
-            this.checkBox7.UseVisualStyleBackColor = true;
-            // 
-            // checkBox8
-            // 
-            this.checkBox8.AutoSize = true;
-            this.checkBox8.Location = new System.Drawing.Point(259, 439);
-            this.checkBox8.Name = "checkBox8";
-            this.checkBox8.Size = new System.Drawing.Size(48, 17);
-            this.checkBox8.TabIndex = 20;
-            this.checkBox8.Text = "NH3";
-            this.checkBox8.UseVisualStyleBackColor = true;
-            // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(19, 470);
+            this.label8.Location = new System.Drawing.Point(12, 616);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(62, 13);
+            this.label8.Size = new System.Drawing.Size(66, 13);
             this.label8.TabIndex = 21;
-            this.label8.Text = "Select Day:";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(368, 231);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(112, 13);
-            this.label9.TabIndex = 23;
-            this.label9.Text = "Weekly Graph by day:";
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.Location = new System.Drawing.Point(371, 257);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(319, 162);
-            this.pictureBox2.TabIndex = 24;
-            this.pictureBox2.TabStop = false;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(368, 439);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(96, 13);
-            this.label10.TabIndex = 25;
-            this.label10.Text = "Select Parameters:";
-            // 
-            // checkBox9
-            // 
-            this.checkBox9.AutoSize = true;
-            this.checkBox9.Location = new System.Drawing.Point(471, 439);
-            this.checkBox9.Name = "checkBox9";
-            this.checkBox9.Size = new System.Drawing.Size(37, 17);
-            this.checkBox9.TabIndex = 26;
-            this.checkBox9.Text = "All";
-            this.checkBox9.UseVisualStyleBackColor = true;
-            // 
-            // checkBox10
-            // 
-            this.checkBox10.AutoSize = true;
-            this.checkBox10.Location = new System.Drawing.Point(514, 439);
-            this.checkBox10.Name = "checkBox10";
-            this.checkBox10.Size = new System.Drawing.Size(41, 17);
-            this.checkBox10.TabIndex = 27;
-            this.checkBox10.Text = "PH";
-            this.checkBox10.UseVisualStyleBackColor = true;
-            // 
-            // checkBox11
-            // 
-            this.checkBox11.AutoSize = true;
-            this.checkBox11.Location = new System.Drawing.Point(562, 439);
-            this.checkBox11.Name = "checkBox11";
-            this.checkBox11.Size = new System.Drawing.Size(42, 17);
-            this.checkBox11.TabIndex = 28;
-            this.checkBox11.Text = "CI2";
-            this.checkBox11.UseVisualStyleBackColor = true;
-            // 
-            // checkBox12
-            // 
-            this.checkBox12.AutoSize = true;
-            this.checkBox12.Location = new System.Drawing.Point(610, 439);
-            this.checkBox12.Name = "checkBox12";
-            this.checkBox12.Size = new System.Drawing.Size(48, 17);
-            this.checkBox12.TabIndex = 29;
-            this.checkBox12.Text = "NH3";
-            this.checkBox12.UseVisualStyleBackColor = true;
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(371, 470);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(69, 13);
-            this.label11.TabIndex = 30;
-            this.label11.Text = "Select week:";
+            this.label8.Text = "Select Date:";
             // 
             // dateTimePickerAlarmStart
             // 
-            this.dateTimePickerAlarmStart.Location = new System.Drawing.Point(16, 186);
+            this.dateTimePickerAlarmStart.Location = new System.Drawing.Point(87, 166);
             this.dateTimePickerAlarmStart.Name = "dateTimePickerAlarmStart";
             this.dateTimePickerAlarmStart.Size = new System.Drawing.Size(156, 20);
             this.dateTimePickerAlarmStart.TabIndex = 32;
             // 
             // dateTimePickerAlarmEnd
             // 
-            this.dateTimePickerAlarmEnd.Location = new System.Drawing.Point(200, 186);
+            this.dateTimePickerAlarmEnd.Location = new System.Drawing.Point(271, 167);
             this.dateTimePickerAlarmEnd.Name = "dateTimePickerAlarmEnd";
             this.dateTimePickerAlarmEnd.Size = new System.Drawing.Size(156, 20);
             this.dateTimePickerAlarmEnd.TabIndex = 33;
             // 
-            // dateTimePicker3
+            // dateTimePickerGraph
             // 
-            this.dateTimePicker3.Location = new System.Drawing.Point(87, 464);
-            this.dateTimePicker3.Name = "dateTimePicker3";
-            this.dateTimePicker3.Size = new System.Drawing.Size(156, 20);
-            this.dateTimePicker3.TabIndex = 34;
+            this.dateTimePickerGraph.Location = new System.Drawing.Point(87, 610);
+            this.dateTimePickerGraph.Name = "dateTimePickerGraph";
+            this.dateTimePickerGraph.Size = new System.Drawing.Size(156, 20);
+            this.dateTimePickerGraph.TabIndex = 34;
             // 
             // AlarmBetweenDates
             // 
-            this.AlarmBetweenDates.Location = new System.Drawing.Point(200, 213);
+            this.AlarmBetweenDates.Location = new System.Drawing.Point(446, 165);
             this.AlarmBetweenDates.Name = "AlarmBetweenDates";
             this.AlarmBetweenDates.Size = new System.Drawing.Size(156, 23);
             this.AlarmBetweenDates.TabIndex = 36;
             this.AlarmBetweenDates.Text = "Alarm Between Dates";
             this.AlarmBetweenDates.UseVisualStyleBackColor = true;
-            this.AlarmBetweenDates.Click += new System.EventHandler(this.AlarmBetweenDates_Click);
+            this.AlarmBetweenDates.Click += new System.EventHandler(this.buttonAlarmBetweenDates_Click);
             // 
-            // button2
+            // buttonGraphDay
             // 
-            this.button2.Location = new System.Drawing.Point(87, 490);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(156, 23);
-            this.button2.TabIndex = 37;
-            this.button2.Text = "Show Graph Hour";
-            this.button2.UseVisualStyleBackColor = true;
+            this.buttonGraphDay.Location = new System.Drawing.Point(271, 611);
+            this.buttonGraphDay.Name = "buttonGraphDay";
+            this.buttonGraphDay.Size = new System.Drawing.Size(156, 23);
+            this.buttonGraphDay.TabIndex = 37;
+            this.buttonGraphDay.Text = "Show Graph Day";
+            this.buttonGraphDay.UseVisualStyleBackColor = true;
+            this.buttonGraphDay.Click += new System.EventHandler(this.buttonGraphDay_Click);
             // 
-            // button3
+            // buttonGraphWeek
             // 
-            this.button3.Location = new System.Drawing.Point(446, 490);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(156, 23);
-            this.button3.TabIndex = 38;
-            this.button3.Text = "Show Graph Day";
-            this.button3.UseVisualStyleBackColor = true;
+            this.buttonGraphWeek.Location = new System.Drawing.Point(446, 613);
+            this.buttonGraphWeek.Name = "buttonGraphWeek";
+            this.buttonGraphWeek.Size = new System.Drawing.Size(156, 23);
+            this.buttonGraphWeek.TabIndex = 38;
+            this.buttonGraphWeek.Text = "Show Graph Week";
+            this.buttonGraphWeek.UseVisualStyleBackColor = true;
+            this.buttonGraphWeek.Click += new System.EventHandler(this.buttonGraphWeek_Click);
             // 
-            // dateTimePicker4
+            // listViewAlarmInfo
             // 
-            this.dateTimePicker4.Location = new System.Drawing.Point(446, 464);
-            this.dateTimePicker4.Name = "dateTimePicker4";
-            this.dateTimePicker4.Size = new System.Drawing.Size(156, 20);
-            this.dateTimePicker4.TabIndex = 39;
+            this.listViewAlarmInfo.Location = new System.Drawing.Point(15, 23);
+            this.listViewAlarmInfo.Name = "listViewAlarmInfo";
+            this.listViewAlarmInfo.Size = new System.Drawing.Size(587, 140);
+            this.listViewAlarmInfo.TabIndex = 40;
+            this.listViewAlarmInfo.UseCompatibleStateImageBehavior = false;
+            // 
+            // dateTimePickerAlarmDaily
+            // 
+            this.dateTimePickerAlarmDaily.Location = new System.Drawing.Point(87, 192);
+            this.dateTimePickerAlarmDaily.Name = "dateTimePickerAlarmDaily";
+            this.dateTimePickerAlarmDaily.Size = new System.Drawing.Size(156, 20);
+            this.dateTimePickerAlarmDaily.TabIndex = 42;
+            // 
+            // buttonAlarmInfoDaily
+            // 
+            this.buttonAlarmInfoDaily.Location = new System.Drawing.Point(271, 193);
+            this.buttonAlarmInfoDaily.Name = "buttonAlarmInfoDaily";
+            this.buttonAlarmInfoDaily.Size = new System.Drawing.Size(156, 23);
+            this.buttonAlarmInfoDaily.TabIndex = 43;
+            this.buttonAlarmInfoDaily.Text = "Alarm Info Daily";
+            this.buttonAlarmInfoDaily.UseVisualStyleBackColor = true;
+            this.buttonAlarmInfoDaily.Click += new System.EventHandler(this.buttonAlarmInfoDaily_Click);
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(12, 197);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(66, 13);
+            this.label12.TabIndex = 44;
+            this.label12.Text = "Select Date:";
+            // 
+            // chart1
+            // 
+            chartArea3.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea3);
+            legend3.Name = "Legend1";
+            this.chart1.Legends.Add(legend3);
+            this.chart1.Location = new System.Drawing.Point(15, 254);
+            this.chart1.Name = "chart1";
+            series3.ChartArea = "ChartArea1";
+            series3.Legend = "Legend1";
+            series3.Name = "Series1";
+            this.chart1.Series.Add(series3);
+            this.chart1.Size = new System.Drawing.Size(587, 327);
+            this.chart1.TabIndex = 45;
+            this.chart1.Text = "chartGraph";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(12, 236);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(94, 13);
+            this.label4.TabIndex = 46;
+            this.label4.Text = "Graph Information:";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(12, 587);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(71, 13);
+            this.label5.TabIndex = 47;
+            this.label5.Text = "Select Dates:";
+            // 
+            // dateTimePickerGraphStart
+            // 
+            this.dateTimePickerGraphStart.Location = new System.Drawing.Point(87, 584);
+            this.dateTimePickerGraphStart.Name = "dateTimePickerGraphStart";
+            this.dateTimePickerGraphStart.Size = new System.Drawing.Size(156, 20);
+            this.dateTimePickerGraphStart.TabIndex = 48;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(249, 591);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(16, 13);
+            this.label6.TabIndex = 49;
+            this.label6.Text = "to";
+            // 
+            // dateTimePickerGraphEnd
+            // 
+            this.dateTimePickerGraphEnd.Location = new System.Drawing.Point(271, 585);
+            this.dateTimePickerGraphEnd.Name = "dateTimePickerGraphEnd";
+            this.dateTimePickerGraphEnd.Size = new System.Drawing.Size(156, 20);
+            this.dateTimePickerGraphEnd.TabIndex = 50;
+            // 
+            // buttonGraphBetweenDates
+            // 
+            this.buttonGraphBetweenDates.Location = new System.Drawing.Point(446, 584);
+            this.buttonGraphBetweenDates.Name = "buttonGraphBetweenDates";
+            this.buttonGraphBetweenDates.Size = new System.Drawing.Size(156, 23);
+            this.buttonGraphBetweenDates.TabIndex = 51;
+            this.buttonGraphBetweenDates.Text = "Show Graph Between Dates";
+            this.buttonGraphBetweenDates.UseVisualStyleBackColor = true;
+            this.buttonGraphBetweenDates.Click += new System.EventHandler(this.buttonGraphBetweenDates_Click);
+            // 
+            // checkBoxPH
+            // 
+            this.checkBoxPH.AutoSize = true;
+            this.checkBoxPH.Checked = true;
+            this.checkBoxPH.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxPH.Location = new System.Drawing.Point(456, 231);
+            this.checkBoxPH.Name = "checkBoxPH";
+            this.checkBoxPH.Size = new System.Drawing.Size(41, 17);
+            this.checkBoxPH.TabIndex = 52;
+            this.checkBoxPH.Text = "PH";
+            this.checkBoxPH.UseVisualStyleBackColor = true;
+            this.checkBoxPH.CheckedChanged += new System.EventHandler(this.checkBoxPH_CheckedChanged);
+            // 
+            // checkBoxCL2
+            // 
+            this.checkBoxCL2.AutoSize = true;
+            this.checkBoxCL2.Checked = true;
+            this.checkBoxCL2.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxCL2.Location = new System.Drawing.Point(557, 232);
+            this.checkBoxCL2.Name = "checkBoxCL2";
+            this.checkBoxCL2.Size = new System.Drawing.Size(45, 17);
+            this.checkBoxCL2.TabIndex = 53;
+            this.checkBoxCL2.Text = "CL2";
+            this.checkBoxCL2.UseVisualStyleBackColor = true;
+            this.checkBoxCL2.CheckedChanged += new System.EventHandler(this.checkBoxCL2_CheckedChanged);
+            // 
+            // checkBoxNH3
+            // 
+            this.checkBoxNH3.AutoSize = true;
+            this.checkBoxNH3.Checked = true;
+            this.checkBoxNH3.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxNH3.Location = new System.Drawing.Point(503, 231);
+            this.checkBoxNH3.Name = "checkBoxNH3";
+            this.checkBoxNH3.Size = new System.Drawing.Size(48, 17);
+            this.checkBoxNH3.TabIndex = 54;
+            this.checkBoxNH3.Text = "NH3";
+            this.checkBoxNH3.UseVisualStyleBackColor = true;
+            this.checkBoxNH3.CheckedChanged += new System.EventHandler(this.checkBoxNH3_CheckedChanged);
+            // 
+            // comboBoxTypeGraphs
+            // 
+            this.comboBoxTypeGraphs.FormattingEnabled = true;
+            this.comboBoxTypeGraphs.Location = new System.Drawing.Point(329, 229);
+            this.comboBoxTypeGraphs.Name = "comboBoxTypeGraphs";
+            this.comboBoxTypeGraphs.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxTypeGraphs.TabIndex = 55;
+            this.comboBoxTypeGraphs.SelectedIndexChanged += new System.EventHandler(this.comboBoxTypeGraphs_SelectedIndexChanged);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(257, 233);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(66, 13);
+            this.label7.TabIndex = 56;
+            this.label7.Text = "Graph Type:";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(715, 525);
-            this.Controls.Add(this.dateTimePicker4);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
+            this.ClientSize = new System.Drawing.Size(619, 657);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.comboBoxTypeGraphs);
+            this.Controls.Add(this.checkBoxNH3);
+            this.Controls.Add(this.checkBoxCL2);
+            this.Controls.Add(this.checkBoxPH);
+            this.Controls.Add(this.buttonGraphBetweenDates);
+            this.Controls.Add(this.dateTimePickerGraphEnd);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.dateTimePickerGraphStart);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.chart1);
+            this.Controls.Add(this.label12);
+            this.Controls.Add(this.buttonAlarmInfoDaily);
+            this.Controls.Add(this.dateTimePickerAlarmDaily);
+            this.Controls.Add(this.listViewAlarmInfo);
+            this.Controls.Add(this.buttonGraphWeek);
+            this.Controls.Add(this.buttonGraphDay);
             this.Controls.Add(this.AlarmBetweenDates);
-            this.Controls.Add(this.dateTimePicker3);
+            this.Controls.Add(this.dateTimePickerGraph);
             this.Controls.Add(this.dateTimePickerAlarmEnd);
             this.Controls.Add(this.dateTimePickerAlarmStart);
-            this.Controls.Add(this.label11);
-            this.Controls.Add(this.checkBox12);
-            this.Controls.Add(this.checkBox11);
-            this.Controls.Add(this.checkBox10);
-            this.Controls.Add(this.checkBox9);
-            this.Controls.Add(this.label10);
-            this.Controls.Add(this.pictureBox2);
-            this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
-            this.Controls.Add(this.checkBox8);
-            this.Controls.Add(this.checkBox7);
-            this.Controls.Add(this.checkBox6);
-            this.Controls.Add(this.checkBox5);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.label7);
-            this.Controls.Add(this.checkBoxAllWater);
-            this.Controls.Add(this.checkBoxNH3Water);
-            this.Controls.Add(this.checkBoxCL2Water);
-            this.Controls.Add(this.checkBoxPHWater);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.textBoxWaterQuality);
-            this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.textBoxAlarmInfo);
             this.Controls.Add(this.label1);
             this.Name = "Form1";
             this.Text = "Form1";
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            this.Load += new System.EventHandler(this.Form1_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -428,39 +348,31 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBoxAlarmInfo;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox textBoxWaterQuality;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.CheckBox checkBoxPHWater;
-        private System.Windows.Forms.CheckBox checkBoxCL2Water;
-        private System.Windows.Forms.CheckBox checkBoxNH3Water;
-        private System.Windows.Forms.CheckBox checkBoxAllWater;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.CheckBox checkBox5;
-        private System.Windows.Forms.CheckBox checkBox6;
-        private System.Windows.Forms.CheckBox checkBox7;
-        private System.Windows.Forms.CheckBox checkBox8;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.PictureBox pictureBox2;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.CheckBox checkBox9;
-        private System.Windows.Forms.CheckBox checkBox10;
-        private System.Windows.Forms.CheckBox checkBox11;
-        private System.Windows.Forms.CheckBox checkBox12;
-        private System.Windows.Forms.Label label11;
         private System.Windows.Forms.DateTimePicker dateTimePickerAlarmStart;
         private System.Windows.Forms.DateTimePicker dateTimePickerAlarmEnd;
-        private System.Windows.Forms.DateTimePicker dateTimePicker3;
+        private System.Windows.Forms.DateTimePicker dateTimePickerGraph;
         private System.Windows.Forms.Button AlarmBetweenDates;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.DateTimePicker dateTimePicker4;
+        private System.Windows.Forms.Button buttonGraphDay;
+        private System.Windows.Forms.Button buttonGraphWeek;
+        private System.Windows.Forms.ListView listViewAlarmInfo;
+        private System.Windows.Forms.DateTimePicker dateTimePickerAlarmDaily;
+        private System.Windows.Forms.Button buttonAlarmInfoDaily;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.DateTimePicker dateTimePickerGraphStart;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.DateTimePicker dateTimePickerGraphEnd;
+        private System.Windows.Forms.Button buttonGraphBetweenDates;
+        private System.Windows.Forms.CheckBox checkBoxPH;
+        private System.Windows.Forms.CheckBox checkBoxCL2;
+        private System.Windows.Forms.CheckBox checkBoxNH3;
+        private System.Windows.Forms.ComboBox comboBoxTypeGraphs;
+        private System.Windows.Forms.Label label7;
     }
 }
 
