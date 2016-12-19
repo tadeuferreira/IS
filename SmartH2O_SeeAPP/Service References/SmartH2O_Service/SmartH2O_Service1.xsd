@@ -7,6 +7,7 @@
       <xs:element minOccurs="0" name="Id" type="xs:int" />
       <xs:element minOccurs="0" name="LowerBound" type="xs:float" />
       <xs:element minOccurs="0" name="Message" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SensorVal" type="xs:float" />
       <xs:element minOccurs="0" name="TriggerType" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TriggerValue" type="xs:float" />
       <xs:element minOccurs="0" name="Type" nillable="true" type="xs:string" />

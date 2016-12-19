@@ -144,6 +144,9 @@ namespace SmartH2O_SeeAPP.SmartH2O_Service {
         private string MessageField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private float SensorValField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string TriggerTypeField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -213,6 +216,19 @@ namespace SmartH2O_SeeAPP.SmartH2O_Service {
                 if ((object.ReferenceEquals(this.MessageField, value) != true)) {
                     this.MessageField = value;
                     this.RaisePropertyChanged("Message");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public float SensorVal {
+            get {
+                return this.SensorValField;
+            }
+            set {
+                if ((this.SensorValField.Equals(value) != true)) {
+                    this.SensorValField = value;
+                    this.RaisePropertyChanged("SensorVal");
                 }
             }
         }

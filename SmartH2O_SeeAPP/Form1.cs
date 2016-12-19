@@ -8,101 +8,373 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace SmartH2O_SeeAPP
 {
     public partial class Form1 : Form
     {
 
-        SmartH2O_ServiceClient service = new SmartH2O_ServiceClient();
+        private SmartH2O_ServiceClient service = new SmartH2O_ServiceClient();
         private ParamVals[] paramVals;
         private AlarmInfo[] alarmInfo;
 
-        AlarmInfo alarm = new AlarmInfo();
+        private AlarmInfo alarm = new AlarmInfo();
+        private ParamVals param = new ParamVals();
 
         public Form1()
         {
             InitializeComponent();
-            
+            listViewAlarmInfo.Clear();
+            chart1.Series.Clear();
+            chart1.Titles.Clear();
         }
 
-        private void AlarmBetweenDates_Click(object sender, EventArgs e)
+        private void buttonAlarmInfoDaily_Click(object sender, EventArgs e)
+        {
+            DateTime date = dateTimePickerAlarmDaily.Value;
+            if (date < DateTime.Now)
+            {
+                alarmInfo = service.GetAlarmDaily(date);
+                showListViewAlarm(alarmInfo);
+            }
+            else
+            {
+                MessageBox.Show("Data Invalid !!!");
+            }
+        }
+
+        private void buttonAlarmBetweenDates_Click(object sender, EventArgs e)
         {
             DateTime dateStart = dateTimePickerAlarmStart.Value;
             DateTime dateEnd = dateTimePickerAlarmEnd.Value;
 
-           // alarmInfo = service.GetAlarmInterval(dateStart, dateEnd);
-
-            /*if (dateStart < dateEnd && !dateStart.Equals(dateEnd))
+            if (dateStart < dateEnd && !dateStart.Equals(dateEnd) && dateEnd <= DateTime.Now)
             {
                 alarmInfo = service.GetAlarmInterval(dateStart, dateEnd);
-                for (int i = 0; i < alarmInfo.Length; i++)
+                showListViewAlarm(alarmInfo);
+            }
+            else
+            {
+                MessageBox.Show("Data Invalid !!!");
+            }
+
+        }
+
+        private void showListViewAlarm(AlarmInfo[] alarmInfo)
+        {
+            listViewAlarmInfo.Clear();
+
+            listViewAlarmInfo.View = View.Details;
+            listViewAlarmInfo.Columns.Add("PARAMETER", 50);
+            listViewAlarmInfo.Columns.Add("TYPE", 100);
+            listViewAlarmInfo.Columns.Add("VALUE", 40);
+            listViewAlarmInfo.Columns.Add("TRIGGER VALUE", 40);
+            listViewAlarmInfo.Columns.Add("LOWER BOUND", 50);
+            listViewAlarmInfo.Columns.Add("UPPER BOUND", 50);
+            listViewAlarmInfo.Columns.Add("DATE", 80);
+            listViewAlarmInfo.Columns.Add("MESSAGE", 170);
+
+            for (int i = 0; i < alarmInfo.Length; i++)
+            {
+                string[] row = { alarmInfo[i].Type,
+                                 alarmInfo[i].TriggerType,
+                                 alarmInfo[i].SensorVal.ToString(),
+                                 alarmInfo[i].TriggerValue.ToString(),
+                                 alarmInfo[i].LowerBound.ToString(),
+                                 alarmInfo[i].UpperBound.ToString(),
+                                 alarmInfo[i].Datetime.ToString(),
+                                 alarmInfo[i].Message};
+
+                ListViewItem item = new ListViewItem(row);
+                listViewAlarmInfo.Items.Add(item);
+            }
+        }
+
+        private void buttonGraphDay_Click(object sender, EventArgs e)
+        {
+            chart1.Series.Clear();
+            chart1.Titles.Clear();
+            DateTime date = dateTimePickerGraph.Value;
+
+            if (date < DateTime.Now)
+            {
+                paramVals = service.GetParamHourly(date);
+
+                Series[] max = new Series[3];
+                Series[] min = new Series[3];
+                Series[] avg = new Series[3];
+
+
+                for (int i = 0; i < 3; i++)
                 {
-                    textBoxAlarmInfo.Text = alarmInfo[i].Type + alarmInfo[i].TriggerType + alarmInfo[i].TriggerValue.ToString() + alarmInfo[i].Datetime.ToString();
+                    max[i] = new Series();
+                    min[i] = new Series();
+                    avg[i] = new Series();
                 }
-            }  */
 
-
-           // textBoxAlarmInfo.Text = alarmInfo[0].Type + alarmInfo[0].TriggerType + alarmInfo[0].TriggerValue.ToString() + alarmInfo[0].Datetime.ToString();
-
-            //textBoxAlarmInfo.Text = alarmInfo.Length.ToString()+ "     \n" + dateTimePickerAlarmStart.Value+ "\n" + dateTimePickerAlarmEnd.Value;
-        }
-
-        private void showWaterParams(string alarmType)
-        {
-            textBoxWaterQuality.Clear();
-            paramVals = service.GetParamHourly(DateTime.Now);
-
-            for (int i = 0; i < paramVals.Length; i++)
-            {
-                if (paramVals[i].Type == alarmType)
+                for (int i = 0; i < 3; i++)
                 {
-                    textBoxWaterQuality.Text = alarm.Message;
+                    for (int j = 0; j < 24; j++)
+                    {
+                        max[i].Points.AddXY(j+1, paramVals[i].Max[j]);
+                        min[i].Points.AddXY(j+1, paramVals[i].Min[j]);
+                        avg[i].Points.AddXY(j+1, paramVals[i].Average[j]);
+                    }
+                    chart1.Series.Add(max[i]);
+                    chart1.Series.Add(min[i]);
+                    chart1.Series.Add(avg[i]);
                 }
+
+
+                chart1.Series[0].Name = "PH: Max";
+                chart1.Series[1].Name = "PH: Min";
+                chart1.Series[2].Name = "PH: Avg";
+                chart1.Series[3].Name = "NH3: Max";
+                chart1.Series[4].Name = "NH3: Min";
+                chart1.Series[5].Name = "NH3: Avg";
+                chart1.Series[6].Name = "CL2: Max";
+                chart1.Series[7].Name = "CL2: Min";
+                chart1.Series[8].Name = "CL2: Avg";
+
+                for (int i = 0; i < 9; i++)
+                {
+                    chart1.Series[i].ChartType = SeriesChartType.Spline;
+                }
+
+                chart1.ChartAreas[0].AxisX.Minimum = 1;
+                chart1.ChartAreas[0].AxisX.Maximum = 24;
+                chart1.ChartAreas[0].AxisY.Minimum = 0;
+                chart1.ChartAreas[0].AxisY.Maximum = 20;
+                chart1.ChartAreas[0].AxisX.Title = "Hours";
+                chart1.ChartAreas[0].AxisY.Title = "Values";
+                chart1.Titles.Add("Parameters Info " + date.ToString("dd/MM/yyyy"));
+
+                checkGraphParams();
+
+
             }
+            else
+            {
+                MessageBox.Show("Data Invalid !!!");
+            }
+
         }
 
-        private void checkBoxAllWater_CheckedChanged(object sender, EventArgs e)
+        private void buttonGraphWeek_Click(object sender, EventArgs e)
         {
-            bool isAllWater = checkBoxAllWater.Checked;
-            string alarmType = alarm.Type;
+            chart1.Series.Clear();
+            chart1.Titles.Clear();
+            DateTime date = dateTimePickerGraph.Value;
 
-            if (isAllWater)
+            if (date < DateTime.Now)
             {
-                showWaterParams(alarmType);
+                paramVals = service.GetParamWeekly(date);
+
+                Series[] max = new Series[3];
+                Series[] min = new Series[3];
+                Series[] avg = new Series[3];
+
+
+                for (int i = 0; i < 3; i++)
+                {
+                    max[i] = new Series();
+                    min[i] = new Series();
+                    avg[i] = new Series();
+                }
+
+                for (int i = 0; i < 3; i++)
+                {
+                    for (int j = 0; j < 7; j++)
+                    {
+                        max[i].Points.AddXY(j + 1, paramVals[i].Max[j]);
+                        min[i].Points.AddXY(j + 1, paramVals[i].Min[j]);
+                        avg[i].Points.AddXY(j + 1, paramVals[i].Average[j]);
+                    }
+                    chart1.Series.Add(max[i]);
+                    chart1.Series.Add(min[i]);
+                    chart1.Series.Add(avg[i]);
+                }
+
+
+                chart1.Series[0].Name = "PH: Max";
+                chart1.Series[1].Name = "PH: Min";
+                chart1.Series[2].Name = "PH: Avg";
+                chart1.Series[3].Name = "NH3: Max";
+                chart1.Series[4].Name = "NH3: Min";
+                chart1.Series[5].Name = "NH3: Avg";
+                chart1.Series[6].Name = "CL2: Max";
+                chart1.Series[7].Name = "CL2: Min";
+                chart1.Series[8].Name = "CL2: Avg";
+
+                for (int i = 0; i < 9; i++)
+                {
+                    chart1.Series[i].ChartType = SeriesChartType.Spline;
+                }
+
+                chart1.ChartAreas[0].AxisX.Minimum = 1;
+                chart1.ChartAreas[0].AxisX.Maximum = 7;
+                chart1.ChartAreas[0].AxisY.Minimum = 0;
+                chart1.ChartAreas[0].AxisY.Maximum = 20;
+                chart1.ChartAreas[0].AxisX.Title = "Days";
+                chart1.ChartAreas[0].AxisY.Title = "Values";
+                chart1.Titles.Add("Parameters Info " + date.ToString("dd/MM/yyyy"));
+
+                checkGraphParams();
+
+
             }
+            else
+            {
+                MessageBox.Show("Data Invalid !!!");
+            }
+
         }
 
-        private void checkBoxPHWater_CheckedChanged(object sender, EventArgs e)
-        {   
-            bool isPHWater = checkBoxPHWater.Checked;
-            string alarmType = "PH";
-
-            if (isPHWater)
-            {
-                showWaterParams(alarmType);
-            }
-        }
-
-        private void checkBoxCL2Water_CheckedChanged(object sender, EventArgs e)
+        private void buttonGraphBetweenDates_Click(object sender, EventArgs e)
         {
-            bool isCL2Water = checkBoxCL2Water.Checked;
-            string alarmType = "CL2";
+            chart1.Series.Clear();
+            chart1.Titles.Clear();
+            DateTime dateStart = dateTimePickerGraphStart.Value;
+            DateTime dateEnd = dateTimePickerGraphEnd.Value;
 
-            if (isCL2Water)
+            if (dateStart < dateEnd && !dateStart.Equals(dateEnd) && dateEnd <= DateTime.Now)
             {
-                showWaterParams(alarmType);
+                paramVals = service.GetParamDaily(dateStart, dateEnd);
+
+                Series[] max = new Series[3];
+                Series[] min = new Series[3];
+                Series[] avg = new Series[3];
+
+
+                for (int i = 0; i < 3; i++)
+                {
+                    max[i] = new Series();
+                    min[i] = new Series();
+                    avg[i] = new Series();
+                }
+
+                int totalDays = (int) Math.Truncate((dateEnd - dateStart).TotalDays) + 1;
+                for (int i = 0; i < 3; i++)
+                {
+                    for (int j = 0; j < totalDays; j++)
+                    {
+                        max[i].Points.AddXY(j + 1, paramVals[i].Max[j]);
+                        min[i].Points.AddXY(j + 1, paramVals[i].Min[j]);
+                        avg[i].Points.AddXY(j + 1, paramVals[i].Average[j]);
+                    }
+                    chart1.Series.Add(max[i]);
+                    chart1.Series.Add(min[i]);
+                    chart1.Series.Add(avg[i]);
+                }
+
+
+                chart1.Series[0].Name = "PH: Max";
+                chart1.Series[1].Name = "PH: Min";
+                chart1.Series[2].Name = "PH: Avg";
+                chart1.Series[3].Name = "NH3: Max";
+                chart1.Series[4].Name = "NH3: Min";
+                chart1.Series[5].Name = "NH3: Avg";
+                chart1.Series[6].Name = "CL2: Max";
+                chart1.Series[7].Name = "CL2: Min";
+                chart1.Series[8].Name = "CL2: Avg";
+
+                for (int i = 0; i < 9; i++)
+                {
+                    chart1.Series[i].ChartType = SeriesChartType.Spline;
+                }
+
+                chart1.ChartAreas[0].AxisX.Minimum = 1;
+                chart1.ChartAreas[0].AxisX.Maximum = totalDays;
+                chart1.ChartAreas[0].AxisY.Minimum = 0;
+                chart1.ChartAreas[0].AxisY.Maximum = 20;
+                chart1.ChartAreas[0].AxisX.Title = "Days";
+                chart1.ChartAreas[0].AxisY.Title = "Values";
+                chart1.Titles.Add("Parameters Info " + dateStart.ToString("dd/MM/yyyy") + " to " + dateEnd.ToString("dd/MM/yyyy"));
+
+                checkGraphParams();
+
+
+            }
+            else
+            {
+                MessageBox.Show("Data Invalid !!!");
+            }
+
+        }
+
+        private void checkGraphParams()
+        {
+            try
+            {
+                chart1.Series[0].Enabled = checkBoxPH.Checked;
+                chart1.Series[1].Enabled = checkBoxPH.Checked;
+                chart1.Series[2].Enabled = checkBoxPH.Checked;
+
+                chart1.Series[3].Enabled = checkBoxNH3.Checked;
+                chart1.Series[4].Enabled = checkBoxNH3.Checked;
+                chart1.Series[5].Enabled = checkBoxNH3.Checked;
+
+                chart1.Series[6].Enabled = checkBoxCL2.Checked;
+                chart1.Series[7].Enabled = checkBoxCL2.Checked;
+                chart1.Series[8].Enabled = checkBoxCL2.Checked;
+            }
+            catch (Exception)
+            {
+
             }
         }
 
-        private void checkBoxNH3Water_CheckedChanged(object sender, EventArgs e)
+        private void checkBoxPH_CheckedChanged(object sender, EventArgs e)
         {
-            bool isNH3Water = checkBoxNH3Water.Checked;
-            string alarmType = "NH3";
+            checkGraphParams();
+        }
 
-            if (isNH3Water)
+        private void checkBoxNH3_CheckedChanged(object sender, EventArgs e)
+        {
+            checkGraphParams();
+        }
+
+        private void checkBoxCL2_CheckedChanged(object sender, EventArgs e)
+        {
+            checkGraphParams();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            comboBoxTypeGraphs.Items.Add("Column");
+            comboBoxTypeGraphs.Items.Add("Line");
+            comboBoxTypeGraphs.Items.Add("Spline");
+            comboBoxTypeGraphs.Items.Add("Bar");
+            comboBoxTypeGraphs.Items.Add("Point");
+
+            //comboBoxTypeGraphs.SelectedIndex = 2;
+        }
+
+        private void comboBoxTypeGraphs_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (comboBoxTypeGraphs.SelectedItem.ToString())
             {
-                showWaterParams(alarmType);
+                case "Column": changeGraphType(SeriesChartType.Column);
+                    break;
+                case "Line": changeGraphType(SeriesChartType.Line);
+                    break;
+                case "Spline": changeGraphType(SeriesChartType.Spline);
+                    break;
+                case "Bar": changeGraphType(SeriesChartType.Bar);
+                    break;
+                case "Point": changeGraphType(SeriesChartType.Point);
+                    break;
+                default: 
+                    break;
+            }
+        }
+
+        private void changeGraphType(SeriesChartType type)
+        {
+            for (int i = 0; i < 9; i++)
+            {
+                chart1.Series[i].ChartType = type;
             }
         }
     }
